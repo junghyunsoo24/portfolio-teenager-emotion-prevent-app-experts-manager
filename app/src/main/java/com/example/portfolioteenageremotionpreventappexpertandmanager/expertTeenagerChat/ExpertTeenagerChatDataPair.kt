@@ -1,0 +1,3 @@
+package com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerChat
+
+data class ExpertTeenagerChatDataPair(val inputMessage: String, val responseMessage: String)
