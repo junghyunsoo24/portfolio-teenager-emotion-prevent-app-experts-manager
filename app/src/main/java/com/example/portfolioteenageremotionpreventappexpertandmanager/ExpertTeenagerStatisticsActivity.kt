@@ -10,25 +10,27 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.portfolioteenageremotionpreventappexpertandmanager.adapter.ManagerTeenagerListAdapter
+import com.example.portfolioteenageremotionpreventappexpertandmanager.adapter.ExpertTeenagerStatisticsAdapter
 import com.example.portfolioteenageremotionpreventappexpertandmanager.appViewModel.AppViewModel
-import com.example.portfolioteenageremotionpreventappexpertandmanager.databinding.ActivityManagerTeenagerlistBinding
-import com.example.portfolioteenageremotionpreventappexpertandmanager.managerTeenagerList.ManagerTeenagerListApi
-import com.example.portfolioteenageremotionpreventappexpertandmanager.managerTeenagerList.Teenager
+import com.example.portfolioteenageremotionpreventappexpertandmanager.databinding.ActivityExpertTeenagerStatisticsBinding
+import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerStatistics.ExpertTeenagerStatisticsApi
+import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerStatistics.ExpertTeenagerStatisticsData
+import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerStatistics.Statistics
 import kotlinx.coroutines.launch
 
-class ManagerTeenagerListActivity : AppCompatActivity(){
+class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
     private lateinit var viewModel: AppViewModel
-    private lateinit var binding: ActivityManagerTeenagerlistBinding
-
-    private lateinit var result: List<Teenager>
+    private lateinit var binding: ActivityExpertTeenagerStatisticsBinding
+    private lateinit var result: List<Statistics>
+    private lateinit var id: String
+    private lateinit var child_id: String
     private lateinit var baseUrl: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityManagerTeenagerlistBinding.inflate(layoutInflater)
+        binding = ActivityExpertTeenagerStatisticsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val actionBar: ActionBar? = supportActionBar
@@ -37,44 +39,47 @@ class ManagerTeenagerListActivity : AppCompatActivity(){
         actionBar?.setCustomView(R.layout.actionbar_all)
 
         val actionBarTitle = actionBar?.customView?.findViewById<TextView>(R.id.actionBarAll)
-        actionBarTitle?.text = "할당받지않은 청소년목록"
+        actionBarTitle?.text = "감정 통계 조회"
 
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
         viewModel = AppViewModel.getInstance()
 
+        id = viewModel.getUserId().value.toString()
+        child_id = viewModel.getTeenagerId().value.toString()
+
         val layoutManager = LinearLayoutManager(this)
-        binding.managerTeenagerListRecyclerView.layoutManager = layoutManager
-        val adapter = ManagerTeenagerListAdapter(emptyList()) { teenager ->
-            viewModel.setTeenagerId(teenager.id)
-            onExpertListButtonClicked()
+        binding.expertTeenagerStatisticsRecyclerView.layoutManager = layoutManager
+        val adapter = ExpertTeenagerStatisticsAdapter(emptyList()) {
+            onChildChatButtonClicked()
         }
-        binding.managerTeenagerListRecyclerView.adapter = adapter
+        binding.expertTeenagerStatisticsRecyclerView.adapter = adapter
 
         baseUrl = resources.getString(R.string.api_ip_server)
         mobileToServer()
     }
 
-    private fun onExpertListButtonClicked() {
-        val intent = Intent(this, ManagerExpertListActivity::class.java)
+    private fun onChildChatButtonClicked() {
+        val intent = Intent(this, ExpertTeenagerChatActivity::class.java)
         startActivity(intent)
     }
 
     private fun mobileToServer() {
         lifecycleScope.launch {
             try {
-                val response = ManagerTeenagerListApi.retrofitService(baseUrl).sendsMessage()
+                val message = ExpertTeenagerStatisticsData(child_id)
+                val response = ExpertTeenagerStatisticsApi.retrofitService(baseUrl).sendsMessage(message)
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
                         // 서버 응답을 확인하는 작업 수행
-                        val responseData = responseBody.child
+                        val responseData = responseBody.statistics
                         result = responseData
 
-                        val adapter =
-                            binding.managerTeenagerListRecyclerView.adapter as ManagerTeenagerListAdapter
-                        adapter.managerTeenagerList = result // 어댑터에 데이터 설정
+                        val adapter = binding.expertTeenagerStatisticsRecyclerView.adapter as ExpertTeenagerStatisticsAdapter
+                        adapter.teenagerStatistics = result // 어댑터에 데이터 설정
                         adapter.notifyDataSetChanged()
+
 
                     } else {
                         Log.e("@@@@Error3", "Response body is null")

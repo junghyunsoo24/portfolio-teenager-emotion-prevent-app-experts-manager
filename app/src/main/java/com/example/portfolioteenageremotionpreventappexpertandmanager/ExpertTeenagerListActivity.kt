@@ -50,7 +50,7 @@ class ExpertTeenagerListActivity : AppCompatActivity() {
         binding.expertTeenagerListRecyclerView.layoutManager = layoutManager
         val adapter = ExpertTeenagerListAdapter(emptyList()) { allocatedTeenager ->
             viewModel.setTeenagerId(allocatedTeenager.id)
-            onChildChatButtonClicked()
+            onTeenagerChatButtonClicked()
         }
         binding.expertTeenagerListRecyclerView.adapter = adapter
 
@@ -58,8 +58,8 @@ class ExpertTeenagerListActivity : AppCompatActivity() {
         mobileToServer()
     }
 
-    private fun onChildChatButtonClicked() {
-        val intent = Intent(this, ExpertTeenagerChatActivity::class.java)
+    private fun onTeenagerChatButtonClicked() {
+        val intent = Intent(this, ExpertTeenagerStatisticsActivity::class.java)
         startActivity(intent)
     }
 

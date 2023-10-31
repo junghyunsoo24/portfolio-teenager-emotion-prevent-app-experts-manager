@@ -47,8 +47,12 @@
         <activity
             android:name=".ExpertTeenagerChatActivity"
             android:exported="false"
-            android:parentActivityName=".ExpertSelectActivity"
+            android:parentActivityName=".ExpertTeenagerStatisticsActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+        <activity
+            android:name=".ExpertTeenagerStatisticsActivity"
+            android:exported="false"
+            android:parentActivityName=".ExpertTeenagerListActivity" />
         <activity
             android:name=".ExpertTeenagerListActivity"
             android:exported="false"

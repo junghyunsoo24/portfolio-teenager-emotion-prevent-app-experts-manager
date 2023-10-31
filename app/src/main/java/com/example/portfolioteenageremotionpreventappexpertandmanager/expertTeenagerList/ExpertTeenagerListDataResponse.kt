@@ -11,6 +11,6 @@ data class AllocatedTeenager(
     val age: Int,
     val address: String,
     val phone_num: String,
-    val at_risk_teenager_status: Int,
+    val at_risk_child_status: Int,
     val sentiment: Int
 )
