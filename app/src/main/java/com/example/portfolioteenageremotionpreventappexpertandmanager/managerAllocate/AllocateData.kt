@@ -2,4 +2,4 @@ package com.example.portfolioteenageremotionpreventappexpertandmanager.managerAl
 
 import androidx.lifecycle.LiveData
 
-data class AllocateData(val teenager_id: String, val expert_id: String)
+data class AllocateData(val child_id: String, val expert_id: String)

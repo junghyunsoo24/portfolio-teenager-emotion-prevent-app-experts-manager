@@ -58,7 +58,7 @@ class ExpertTeenagerChatActivity : AppCompatActivity() {
             mSocket = IO.socket(resources.getString(R.string.chat_ip_server),options)
             mSocket.connect()
 
-            val roomName = id
+            val roomName = viewModel.getTeenagerId().value
 
             //(1)입장
             val data = JoinData(id, roomName)
