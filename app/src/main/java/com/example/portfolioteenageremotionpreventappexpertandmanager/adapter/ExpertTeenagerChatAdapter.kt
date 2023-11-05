@@ -25,11 +25,21 @@ class ExpertTeenagerChatAdapter(private val teenagerChatData: List<ExpertTeenage
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
         val messagePair = teenagerChatData[position]
 
-        holder.inputMessageTextView.text = messagePair.inputMessage
-        holder.inputMessageTextView.textSize = 15f
+        if (messagePair.inputMessage.isNullOrEmpty()) {
+            holder.inputMessageTextView.visibility = View.GONE
+        } else {
+            holder.inputMessageTextView.text = messagePair.inputMessage
+            holder.inputMessageTextView.textSize = 15f
+            holder.inputMessageTextView.visibility = View.VISIBLE
+        }
 
-        holder.responseMessageTextView.text = messagePair.responseMessage
-        holder.responseMessageTextView.textSize = 15f
+        if (messagePair.responseMessage.isNullOrEmpty()) {
+            holder.responseMessageTextView.visibility = View.GONE
+        } else {
+            holder.responseMessageTextView.text = messagePair.responseMessage
+            holder.responseMessageTextView.textSize = 15f
+            holder.responseMessageTextView.visibility = View.VISIBLE
+        }
     }
 
     override fun getItemCount(): Int = teenagerChatData.size
