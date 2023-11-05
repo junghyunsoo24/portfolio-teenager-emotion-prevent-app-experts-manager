@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ADD8E6"
+    android:background="#FFECB3"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="32dp"
-        android:text="청소년 모니 터링"
+        android:text="청소년 대화하기"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -41,7 +41,7 @@
         android:layout_width="297dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:background="#075AFF"
+        android:background="#FFA500"
         android:padding="12dp"
         android:text="할당된청소년 목록"
         android:textColor="#FFFFFF"
