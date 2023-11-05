@@ -1,11 +1,13 @@
 package com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerStatistics
 
+import java.util.*
+
 data class ExpertTeenagerStatisticsDataResponse(
-    val statistics: List<Statistics>
+    val statisticsArray: List<Statistics>
 )
 
 data class Statistics(
-    val date: String,
+    val date: Date,
     val pleasure: Int,
     val anxiety: Int,
     val sorrow: Int,
