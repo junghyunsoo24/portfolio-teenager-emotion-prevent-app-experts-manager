@@ -45,6 +45,18 @@
             android:exported="false"
             android:parentActivityName=".AllLoginActivity" />
         <activity
+            android:name=".ExpertInfoListActivity"
+            android:parentActivityName=".ExpertTeenagerListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ExpertTeenagerListActivity" />
+        </activity>
+
+        <activity
+            android:name=".ExpertInfoSetListActivity"
+            android:exported="false"
+            android:parentActivityName=".ExpertInfoListActivity" />
+        <activity
             android:name=".ExpertTeenagerChatActivity"
             android:exported="false"
             android:parentActivityName=".ExpertTeenagerStatisticsActivity"

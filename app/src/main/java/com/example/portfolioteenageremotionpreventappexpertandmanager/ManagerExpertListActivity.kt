@@ -129,15 +129,4 @@ class ManagerExpertListActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu, menu)
         return true
     }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.myPage_btn -> {
-                val intent = Intent(this, AllMyPageActivity::class.java)
-                startActivity(intent)
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
 }
