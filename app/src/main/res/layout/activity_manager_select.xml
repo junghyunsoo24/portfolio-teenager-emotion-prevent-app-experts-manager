@@ -3,20 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ADD8E6"
+    android:background="#FFECB3"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".AllMainActivity">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@null"
+            android:src="@drawable/friend" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="16dp"
-        android:text="하루 친구"
+        android:text="하루친구"
         android:textColor="#000000"
-        android:textSize="28sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
@@ -24,20 +32,20 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="32dp"
-        android:text="청소년 모니터링"
-        android:textSize="24sp"
+        android:text="청소년 대화하기"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <android.widget.Button
         android:id="@+id/childList_btn"
         android:layout_width="wrap_content"
-        android:layout_height="76dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:background="#075AFF"
+        android:background="#FFA500"
         android:padding="12dp"
-        android:text="할당 되지 않은 청소년 목록"
+        android:text="할당되지않은 청소년목록"
         android:textColor="#FFFFFF"
-        android:textSize="24sp"
+        android:textSize="14sp"
         android:textStyle="bold" />
 
 </LinearLayout>

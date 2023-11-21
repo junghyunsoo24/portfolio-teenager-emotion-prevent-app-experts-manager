@@ -25,10 +25,7 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
     private lateinit var id: String
     private lateinit var baseUrl: String
 
-    private lateinit var teenID: String
-    private lateinit var startDate: String
-    private lateinit var endDate: String
-
+    private lateinit var child_id: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +46,7 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
         viewModel = AppViewModel.getInstance()
 
         id = viewModel.getUserId().value.toString()
-        teenID = viewModel.getTeenagerId().value.toString()
+        child_id = viewModel.getTeenagerId().value.toString()
 
         val layoutManager = LinearLayoutManager(this)
         binding.expertTeenagerStatisticsRecyclerView.layoutManager = layoutManager
@@ -70,13 +67,13 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
     private fun mobileToServer() {
         lifecycleScope.launch {
             try {
-                val message = ExpertTeenagerStatisticsData(teenID,startDate,endDate)
+                val message = ExpertTeenagerStatisticsData(child_id)
                 val response = ExpertTeenagerStatisticsApi.retrofitService(baseUrl).sendsMessage(message)
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
                         // 서버 응답을 확인하는 작업 수행
-                        val responseData = responseBody.statisticsArray
+                        val responseData = responseBody.statistics
                         result = responseData
 
                         val adapter = binding.expertTeenagerStatisticsRecyclerView.adapter as ExpertTeenagerStatisticsAdapter
