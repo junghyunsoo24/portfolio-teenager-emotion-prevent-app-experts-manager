@@ -16,6 +16,8 @@ import com.example.portfolioteenageremotionpreventappexpertandmanager.databindin
 import com.example.portfolioteenageremotionpreventappexpertandmanager.expertInfoList.InfoListApi
 import com.example.portfolioteenageremotionpreventappexpertandmanager.expertInfoList.InfoListData
 import com.example.portfolioteenageremotionpreventappexpertandmanager.expertInfoList.InfoListDataResponse
+import com.example.portfolioteenageremotionpreventappexpertandmanager.logout.LogoutApi
+import com.example.portfolioteenageremotionpreventappexpertandmanager.logout.LogoutData
 import kotlinx.coroutines.launch
 
 class ExpertInfoListActivity : AppCompatActivity() {
@@ -54,7 +56,7 @@ class ExpertInfoListActivity : AppCompatActivity() {
 
         binding.logoutBtn.setOnClickListener {
             clearChatHistory()
-//            mobileToServers()
+            mobileToServers()
         }
     }
 
@@ -115,27 +117,27 @@ class ExpertInfoListActivity : AppCompatActivity() {
         }
     }
 
-//    private fun mobileToServers() {
-//        lifecycleScope.launch {
-//            try {
-//                val message = LogoutData(id, pw, "teenager")
-//                val response = LogoutApi.retrofitService(baseUrl).sendsMessage(message)
-//                if (response.isSuccessful) {
-//                    val responseBody = response.body()
-//                    if (responseBody != null) {
-//                        showAlertDialog(responseBody.affected)
-//
-//                    } else {
-//                        Log.e("@@@@Error3", "Response body is null")
-//                    }
-//                } else {
-//                    Log.e("@@@@Error2", "Response not successful: ${response.code()}")
-//                }
-//            } catch (Ex: Exception) {
-//                Log.e("@@@@Error1", Ex.stackTraceToString())
-//            }
-//        }
-//    }
+    private fun mobileToServers() {
+        lifecycleScope.launch {
+            try {
+                val message = LogoutData(id, pw, "expert")
+                val response = LogoutApi.retrofitService(baseUrl).sendsMessage(message)
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        showAlertDialog(responseBody.affected)
+
+                    } else {
+                        Log.e("@@@@Error3", "Response body is null")
+                    }
+                } else {
+                    Log.e("@@@@Error2", "Response not successful: ${response.code()}")
+                }
+            } catch (Ex: Exception) {
+                Log.e("@@@@Error1", Ex.stackTraceToString())
+            }
+        }
+    }
 
     override fun onCreateOptionsMenu(menuset: Menu): Boolean {
         menuInflater.inflate(R.menu.menuset, menuset)

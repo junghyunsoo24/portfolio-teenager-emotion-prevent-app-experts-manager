@@ -88,6 +88,19 @@ class AllLoginActivity : AppCompatActivity() {
         builder.show()
     }
 
+    private fun showAlertDialog() {
+        val builder = AlertDialog.Builder(this)
+
+        builder.setTitle("로그인 실패")
+        builder.setMessage("다시 입력하세요")
+        builder.setPositiveButton("확인") { dialog, _ ->
+            dialog.dismiss()
+
+        }
+
+        builder.show()
+    }
+
     private fun onLoginButtonClicked() {
         val intent: Intent = if(viewModel.getUser().value == "1"){
             Intent(this, ExpertSelectActivity::class.java)
@@ -131,6 +144,7 @@ class AllLoginActivity : AppCompatActivity() {
                     }
                 }
             } catch (Ex: Exception) {
+                showAlertDialog()
                 Log.e("@@@@Error1", Ex.stackTraceToString())
             }
         }
