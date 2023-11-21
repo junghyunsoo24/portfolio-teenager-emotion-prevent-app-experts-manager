@@ -1,5 +1,6 @@
 package com.example.portfolioteenageremotionpreventappexpertandmanager.login
 
 data class LoginDataResponse(
-    val result: String
+    val access_token: String,
+    val role: String
 )

@@ -3,6 +3,8 @@ package com.example.portfolioteenageremotionpreventappexpertandmanager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.ActionBar
@@ -12,15 +14,14 @@ import androidx.lifecycle.lifecycleScope
 
 import com.example.portfolioteenageremotionpreventappexpertandmanager.appViewModel.AppViewModel
 import com.example.portfolioteenageremotionpreventappexpertandmanager.databinding.ActivityAllLoginBinding
-import com.example.portfolioteenageremotionpreventappexpertandmanager.login.ExpertLoginApi
+import com.example.portfolioteenageremotionpreventappexpertandmanager.login.LoginApi
 import com.example.portfolioteenageremotionpreventappexpertandmanager.login.LoginData
-import com.example.portfolioteenageremotionpreventappexpertandmanager.login.ManagerLoginApi
 import kotlinx.coroutines.launch
 
 class AllLoginActivity : AppCompatActivity() {
     private lateinit var id: String
     private lateinit var pw: String
-    private lateinit var baseUrl: String
+
     private lateinit var viewModel: AppViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,37 +48,40 @@ class AllLoginActivity : AppCompatActivity() {
         login.setOnClickListener {
             id = binding.idInput.text.toString()
             pw = binding.pwdInput.text.toString()
-
-            baseUrl = resources.getString(R.string.api_ip_server)
-
-            if(viewModel.getUser().value == "1"){
-                expertMobileToServer()
-            }
-            else if(viewModel.getUser().value == "2"){
-                managerMobileToServer()
-            }
+            viewModel.setUrl(resources.getString(R.string.api_ip_server))
+            mobileToServer()
         }
 
         join.setOnClickListener {
             onJoinButtonClicked()
         }
-
     }
 
     private fun showAlertDialog(message: String) {
         val builder = AlertDialog.Builder(this)
-        if (message == "0") {
-            builder.setTitle("로그인 성공")
-            builder.setMessage("다음 화면으로 이동합니다")
-            builder.setPositiveButton("확인") { dialog, _ ->
-                dialog.dismiss()
-                onLoginButtonClicked()
+        when (message) {
+            "expert" -> {
+                builder.setTitle(" 전문가 로그인 성공")
+                builder.setMessage("다음 화면으로 이동합니다")
+                builder.setPositiveButton("확인") { dialog, _ ->
+                    dialog.dismiss()
+                    onLoginButtonClicked()
+                }
             }
-        } else {
-            builder.setTitle("로그인 실패")
-            builder.setMessage("다시 입력하세요")
-            builder.setPositiveButton("확인") { dialog, _ ->
-                dialog.dismiss()
+            "manager" -> {
+                builder.setTitle("관리자 로그인 성공")
+                builder.setMessage("다음 화면으로 이동합니다")
+                builder.setPositiveButton("확인") { dialog, _ ->
+                    dialog.dismiss()
+                    onLoginButtonClicked()
+                }
+            }
+            else -> {
+                builder.setTitle("로그인 실패")
+                builder.setMessage("다시 입력하세요")
+                builder.setPositiveButton("확인") { dialog, _ ->
+                    dialog.dismiss()
+                }
             }
         }
 
@@ -102,24 +106,29 @@ class AllLoginActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun expertMobileToServer() {
+    private fun mobileToServer() {
         lifecycleScope.launch {
             try {
                 val message = LoginData(id, pw)
-                val response = ExpertLoginApi.retrofitService(baseUrl).sendsMessage(message)
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    if (responseBody != null) {
-                        val responseData = responseBody.result
-                        showAlertDialog(responseData)
+                val response = viewModel.getUrl().value?.let {
+                    LoginApi.retrofitService(it).sendsMessage(message)
+                }
+                if (response != null) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null) {
+                            viewModel.setJwtToken(responseBody.access_token)
+                            val responseData = responseBody.role
+                            showAlertDialog(responseData)
 
-                        viewModel.setUserId(id)
-                        viewModel.setUserPwd(pw)
+                            viewModel.setUserId(id)
+                            viewModel.setUserPwd(pw)
+                        } else {
+                            Log.e("@@@@Error3", "Response body is null")
+                        }
                     } else {
-                        Log.e("@@@@Error3", "Response body is null")
+                        Log.e("@@@@Error2", "Response not successful: ${response.code()}")
                     }
-                } else {
-                    Log.e("@@@@Error2", "Response not successful: ${response.code()}")
                 }
             } catch (Ex: Exception) {
                 Log.e("@@@@Error1", Ex.stackTraceToString())
@@ -127,28 +136,10 @@ class AllLoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun managerMobileToServer() {
-        lifecycleScope.launch {
-            try {
-                val message = LoginData(id, pw)
-                val response = ManagerLoginApi.retrofitService(baseUrl).sendsMessage(message)
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    if (responseBody != null) {
-                        val responseData = responseBody.result
-                        showAlertDialog(responseData)
-
-                        viewModel.setUserId(id)
-                        viewModel.setUserPwd(pw)
-                    } else {
-                        Log.e("@@@@Error3", "Response body is null")
-                    }
-                } else {
-                    Log.e("@@@@Error2", "Response not successful: ${response.code()}")
-                }
-            } catch (Ex: Exception) {
-                Log.e("@@@@Error1", Ex.stackTraceToString())
-            }
-        }
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val imm: InputMethodManager =
+            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        return super.dispatchTouchEvent(ev)
     }
 }

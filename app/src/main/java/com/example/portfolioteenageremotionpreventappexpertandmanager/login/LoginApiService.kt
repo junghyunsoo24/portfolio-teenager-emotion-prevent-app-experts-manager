@@ -29,18 +29,18 @@ private fun createRetrofit(baseUrl: String): Retrofit {
         .build()
 }
 
-interface ManagerLoginApiService {
+interface LoginApiService {
     @Headers("Content-Type: application/json")
 
-    @POST("/manager/login")
+    @POST("/v1/auth/signIn")
     suspend fun sendsMessage(@Body message: LoginData): Response<LoginDataResponse>
 
 }
 
 
-object ManagerLoginApi {
-    fun retrofitService(baseUrl: String): ManagerLoginApiService {
+object LoginApi {
+    fun retrofitService(baseUrl: String): LoginApiService {
         val retrofit = createRetrofit(baseUrl)
-        return retrofit.create(ManagerLoginApiService::class.java)
+        return retrofit.create(LoginApiService::class.java)
     }
 }

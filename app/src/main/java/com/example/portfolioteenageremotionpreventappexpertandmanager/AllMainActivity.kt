@@ -17,7 +17,6 @@ class AllMainActivity : AppCompatActivity() {
         viewModel = AppViewModel.getInstance()
 
         val actionBar: ActionBar? = supportActionBar
-
         actionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         actionBar?.setCustomView(R.layout.actionbar_all)
 
