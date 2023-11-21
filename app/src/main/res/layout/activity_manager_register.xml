@@ -8,69 +8,127 @@
     android:background="#FFFFFF">
 
     <ScrollView
-        android:layout_width="354dp"
-        android:layout_height="508dp"
+        android:id="@+id/scrollView4"
+        android:layout_width="300dp"
+        android:layout_height="600dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_width="387dp"
+            android:layout_height="727dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/first_manager_id"
-                android:layout_width="295dp"
-                android:layout_height="56dp"
-                android:text="아이디"
-                android:textSize="20sp"
-                tools:layout_editor_absoluteX="26dp"
-                tools:layout_editor_absoluteY="127dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/first_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:text="아이디"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"></LinearLayout>
+                <EditText
+                    android:id="@+id/first_manager_id_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:hint="아이디를 입력하세요."
+                    android:maxWidth="250dp"
+                    android:maxLines="1"
+                    android:scrollHorizontally="true"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-            <EditText
-                android:id="@+id/first_manager_id_input"
-                android:layout_width="240dp"
-                android:layout_height="60dp"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="아이디를 입력하세요."
-                android:inputType="text"
-                android:textSize="20sp"
-                tools:layout_editor_absoluteX="54dp"
-                tools:layout_editor_absoluteY="160dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal"></LinearLayout>
 
-            <TextView
-                android:id="@+id/first_manager_pwd"
-                android:layout_width="295dp"
-                android:layout_height="56dp"
-                android:text="비밀번호"
-                android:textSize="20sp"
-                tools:layout_editor_absoluteX="26dp"
-                tools:layout_editor_absoluteY="234dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/first_pwd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:text="비밀번호"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"></LinearLayout>
+                <EditText
+                    android:id="@+id/first_manager_pwd_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:hint="비밀번호를 입력하세요."
+                    android:inputType="textPassword"
+                    android:maxWidth="250dp"
+                    android:maxLines="1"
+                    android:scrollHorizontally="true"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-            <EditText
-                android:id="@+id/first_manager_pwd_input"
-                android:layout_width="240dp"
-                android:layout_height="60dp"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="비밀번호를 입력하세요."
-                android:inputType="textPassword"
-                android:textSize="20sp"
-                tools:layout_editor_absoluteX="54dp"
-                tools:layout_editor_absoluteY="274dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="horizontal"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:text="이름"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="53dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"></LinearLayout>
+                <EditText
+                    android:id="@+id/name_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:hint="이름을 입력하세요."
+                    android:inputType="textPersonName"
+                    android:maxWidth="250dp"
+                    android:maxLines="1"
+                    android:scrollHorizontally="true"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/manager_register_btn"
-                android:layout_width="275dp"
-                android:layout_height="64dp"
-                android:text="관리자 회원 가입"
-                android:textSize="24sp"
-                tools:layout_editor_absoluteX="68dp"
-                tools:layout_editor_absoluteY="633dp" />
+                android:layout_width="103dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="100dp"
+                android:text="회원가입"
+                android:layout_gravity="center"
+                android:layout_marginStart="-50dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent" />
         </LinearLayout>
     </ScrollView>
 

@@ -40,6 +40,7 @@ class ManagerRegisterActivity : AppCompatActivity() {
         binding.managerRegisterBtn.setOnClickListener {
             id = binding.firstManagerIdInput.text.toString()
             pw = binding.firstManagerPwdInput.text.toString()
+            name = binding.nameInput.text.toString()
 
             baseUrl = resources.getString(R.string.api_ip_server)
             mobileToServer()

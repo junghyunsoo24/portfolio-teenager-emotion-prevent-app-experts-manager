@@ -8,11 +8,11 @@
     tools:context=".ExpertSelectActivity">
 
     <ScrollView
+        android:id="@+id/scrollView4"
         android:layout_width="300dp"
         android:layout_height="600dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
