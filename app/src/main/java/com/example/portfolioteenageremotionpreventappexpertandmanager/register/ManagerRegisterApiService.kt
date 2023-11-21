@@ -32,7 +32,7 @@ private fun createRetrofit(baseUrl: String): Retrofit {
 interface ManagerRegisterApiService {
     @Headers("Content-Type: application/json")
 
-    @POST("/manager/signUp")
+    @POST("/v1/auth/manager/signUp")
     suspend fun sendsMessage(@Body message: ManagerRegisterData): Response<ManagerRegisterDataResponse>
 
 }

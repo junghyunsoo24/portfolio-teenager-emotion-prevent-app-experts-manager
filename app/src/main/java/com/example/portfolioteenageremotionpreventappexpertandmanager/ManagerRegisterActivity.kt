@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 class ManagerRegisterActivity : AppCompatActivity() {
     private lateinit var id: String
     private lateinit var pw: String
+    private lateinit var name: String
 
     private lateinit var text: String
     private lateinit var baseUrl: String
@@ -66,7 +67,7 @@ class ManagerRegisterActivity : AppCompatActivity() {
     private fun mobileToServer() {
         lifecycleScope.launch {
             try {
-                val message = ManagerRegisterData(id, pw)
+                val message = ManagerRegisterData(id, pw, name)
                 val response = ManagerRegisterApi.retrofitService(baseUrl).sendsMessage(message)
                 if (response.isSuccessful) {
                     val responseBody = response.body()
