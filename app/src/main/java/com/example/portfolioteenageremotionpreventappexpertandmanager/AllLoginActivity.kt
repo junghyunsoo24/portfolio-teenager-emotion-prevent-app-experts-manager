@@ -140,11 +140,11 @@ class AllLoginActivity : AppCompatActivity() {
                             Log.e("@@@@Error3", "Response body is null")
                         }
                     } else {
+                        showAlertDialog()
                         Log.e("@@@@Error2", "Response not successful: ${response.code()}")
                     }
                 }
             } catch (Ex: Exception) {
-                showAlertDialog()
                 Log.e("@@@@Error1", Ex.stackTraceToString())
             }
         }
