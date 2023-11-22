@@ -22,8 +22,8 @@ class ManagerTeenagerListAdapter(var managerTeenagerList: List<Teenager>, privat
     }
 
     override fun onBindViewHolder(holder: ManagerTeenagerViewHolder, position: Int) {
-        var gender = "0"
         val teenager = managerTeenagerList[position]
+        var gender = "0"
         if(teenager.gender == "0") {
             gender = "남"
         }

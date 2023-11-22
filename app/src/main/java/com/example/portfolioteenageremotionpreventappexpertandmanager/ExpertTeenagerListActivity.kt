@@ -72,7 +72,7 @@ class ExpertTeenagerListActivity : AppCompatActivity() {
                     val responseBody = response.body()
                     if (responseBody != null) {
                         // 서버 응답을 확인하는 작업 수행
-                        val responseData = responseBody.result
+                        val responseData = responseBody.teenagers
                         result = responseData
 
                         val adapter = binding.expertTeenagerListRecyclerView.adapter as ExpertTeenagerListAdapter

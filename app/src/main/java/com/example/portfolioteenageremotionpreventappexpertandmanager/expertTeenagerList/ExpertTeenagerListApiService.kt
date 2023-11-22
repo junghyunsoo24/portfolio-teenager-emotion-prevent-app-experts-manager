@@ -32,7 +32,7 @@ private fun createRetrofit(baseUrl: String): Retrofit {
 interface ExpertTeenagerListApiService {
     @Headers("Content-Type: application/json")
 
-    @POST("/childList")
+    @POST("/v1/care/teenagers")
     suspend fun sendsMessage(@Body message: ExpertTeenagerListData): Response<ExpertTeenagerListDataResponse>
 
 }

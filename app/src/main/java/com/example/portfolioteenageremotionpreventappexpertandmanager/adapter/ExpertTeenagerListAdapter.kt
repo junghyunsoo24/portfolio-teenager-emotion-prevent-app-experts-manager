@@ -23,9 +23,23 @@ class ExpertTeenagerListAdapter(var expertTeenagerList: List<AllocatedTeenager>,
 
     override fun onBindViewHolder(holder: ExpertTeenagerViewHolder, position: Int) {
         val allocatedTeenager = expertTeenagerList[position]
-        val allocatedTeenagerInfo = "이름: ${allocatedTeenager.name}\n 아이디: ${allocatedTeenager.id}\n 비밀번호: ${allocatedTeenager.pw}\n" +
-                "주소: ${allocatedTeenager.address}\n 핸드폰번호: ${allocatedTeenager.phone_num}\n 위험 상태: ${allocatedTeenager.at_risk_child_status}\n"+
-                "감정: ${allocatedTeenager.sentiment}\n"
+        var gender = "0"
+        if(allocatedTeenager.gender == "0") {
+            gender = "남"
+        }
+        else if(allocatedTeenager.gender == "1"){
+            gender = "여"
+        }
+
+        val allocatedTeenagerInfo = String.format(
+            "아이디: %s\n이름: %s\n나이: %s\n주소: %s\n성별: %s\n핸드폰번호: %s\n",
+            allocatedTeenager.id,
+            allocatedTeenager.name,
+            allocatedTeenager.age,
+            allocatedTeenager.address,
+            gender,
+            allocatedTeenager.phone_num
+        )
 
         holder.expertTeenagerInfoTextView.text = allocatedTeenagerInfo
 
