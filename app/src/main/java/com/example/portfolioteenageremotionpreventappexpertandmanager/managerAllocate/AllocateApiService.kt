@@ -32,7 +32,7 @@ private fun createRetrofit(baseUrl: String): Retrofit {
 interface AllocateApiService {
     @Headers("Content-Type: application/json")
 
-    @POST("/manager/matchExpert")
+    @POST("/v1/manager/match-teenager")
     suspend fun sendsMessage(@Body message: AllocateData): Response<AllocateDataResponse>
 
 }
