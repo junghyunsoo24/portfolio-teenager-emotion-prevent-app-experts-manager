@@ -21,6 +21,8 @@ class AppViewModel private constructor() : ViewModel() {
 
     private val expertIdLiveData = MutableLiveData<String>()
 
+    private val approveExpertIdLiveData = MutableLiveData<String>()
+
     private val urlLiveData = MutableLiveData<String>()
 
     fun setJwtToken(token: String) {
@@ -53,6 +55,14 @@ class AppViewModel private constructor() : ViewModel() {
 
     fun setExpertId(id: String) {
         expertIdLiveData.value = id
+    }
+
+    fun getApproveExpertId(): LiveData<String> {
+        return approveExpertIdLiveData
+    }
+
+    fun setApproveExpertId(id: String) {
+        approveExpertIdLiveData.value = id
     }
 
     fun setUserPwd(pwd: String) {

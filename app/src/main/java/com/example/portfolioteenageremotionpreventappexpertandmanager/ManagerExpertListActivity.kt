@@ -16,7 +16,7 @@ import com.example.portfolioteenageremotionpreventappexpertandmanager.appViewMod
 import com.example.portfolioteenageremotionpreventappexpertandmanager.databinding.ActivityManagerExpertlistBinding
 import com.example.portfolioteenageremotionpreventappexpertandmanager.managerAllocate.AllocateApi
 import com.example.portfolioteenageremotionpreventappexpertandmanager.managerAllocate.AllocateData
-import com.example.portfolioteenageremotionpreventappexpertandmanager.managerExpertList.Expert
+import com.example.portfolioteenageremotionpreventappexpertandmanager.managerExpertList.ApproveExpert
 import com.example.portfolioteenageremotionpreventappexpertandmanager.managerExpertList.ManagerExpertListApi
 import kotlinx.coroutines.launch
 
@@ -25,7 +25,7 @@ class ManagerExpertListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityManagerExpertlistBinding
     private lateinit var baseUrl: String
 
-    private lateinit var result: List<Expert>
+    private lateinit var result: List<ApproveExpert>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,7 @@ class ManagerExpertListActivity : AppCompatActivity() {
         actionBar?.setCustomView(R.layout.actionbar_all)
 
         val actionBarTitle = actionBar?.customView?.findViewById<TextView>(R.id.actionBarAll)
-        actionBarTitle?.text = "전문가 목록"
+        actionBarTitle?.text = "승인된전문가"
 
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -47,8 +47,8 @@ class ManagerExpertListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.managerExpertListRecyclerView.layoutManager = layoutManager
-        val adapter = ManagerExpertListAdapter(emptyList()) { expert ->
-            viewModel.setExpertId(expert.id)
+        val adapter = ManagerExpertListAdapter(emptyList()) { approveExpert ->
+            viewModel.setApproveExpertId(approveExpert.id)
             allocateDataToServer()
 
         }
@@ -105,12 +105,12 @@ class ManagerExpertListActivity : AppCompatActivity() {
                     val responseBody = response.body()
                     if (responseBody != null) {
                         // 서버 응답을 확인하는 작업 수행
-                        val responseData = responseBody.expert
+                        val responseData = responseBody.authorizedExperts
                         result = responseData
 
                         val adapter =
                             binding.managerExpertListRecyclerView.adapter as ManagerExpertListAdapter
-                        adapter.expertList = result // 어댑터에 데이터 설정
+                        adapter.approveExpertList = result // 어댑터에 데이터 설정
                         adapter.notifyDataSetChanged()
 
                     } else {
@@ -123,10 +123,5 @@ class ManagerExpertListActivity : AppCompatActivity() {
                 Log.e("@@@@Error1", Ex.stackTraceToString())
             }
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        return true
     }
 }

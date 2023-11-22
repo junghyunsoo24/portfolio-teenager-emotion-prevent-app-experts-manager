@@ -4,30 +4,28 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.portfolioteenageremotionpreventappexpertandmanager.adapter.ManagerTeenagerListAdapter
+import com.example.portfolioteenageremotionpreventappexpertandmanager.adapter.ManagerExpertApproveAdapter
 import com.example.portfolioteenageremotionpreventappexpertandmanager.appViewModel.AppViewModel
-import com.example.portfolioteenageremotionpreventappexpertandmanager.databinding.ActivityManagerTeenagerlistBinding
-import com.example.portfolioteenageremotionpreventappexpertandmanager.login.LoginApi
-import com.example.portfolioteenageremotionpreventappexpertandmanager.managerTeenagerList.ManagerTeenagerListApi
-import com.example.portfolioteenageremotionpreventappexpertandmanager.managerTeenagerList.Teenager
+import com.example.portfolioteenageremotionpreventappexpertandmanager.databinding.ActivityManagerExpertapproveBinding
+import com.example.portfolioteenageremotionpreventappexpertandmanager.managerExpertApprove.Expert
+import com.example.portfolioteenageremotionpreventappexpertandmanager.managerExpertApprove.ManagerExpertApproveApi
 import kotlinx.coroutines.launch
 
-class ManagerTeenagerListActivity : AppCompatActivity(){
+class ManagerExpertApproveActivity : AppCompatActivity(){
     private lateinit var viewModel: AppViewModel
-    private lateinit var binding: ActivityManagerTeenagerlistBinding
+    private lateinit var binding: ActivityManagerExpertapproveBinding
 
-    private lateinit var result: List<Teenager>
+    private lateinit var result: List<Expert>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityManagerTeenagerlistBinding.inflate(layoutInflater)
+        binding = ActivityManagerExpertapproveBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val actionBar: ActionBar? = supportActionBar
@@ -36,46 +34,39 @@ class ManagerTeenagerListActivity : AppCompatActivity(){
         actionBar?.setCustomView(R.layout.actionbar_all)
 
         val actionBarTitle = actionBar?.customView?.findViewById<TextView>(R.id.actionBarAll)
-        actionBarTitle?.text = "할당받지않은청소년"
+        actionBarTitle?.text = "승인받지않은전문가목록"
 
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
         viewModel = AppViewModel.getInstance()
 
         val layoutManager = LinearLayoutManager(this)
-        binding.managerTeenagerListRecyclerView.layoutManager = layoutManager
-        val adapter = ManagerTeenagerListAdapter(emptyList()) { teenager ->
-            viewModel.setTeenagerId(teenager.id)
-            onExpertListButtonClicked()
+        binding.managerExpertApproveRecyclerView.layoutManager = layoutManager
+        val adapter = ManagerExpertApproveAdapter(emptyList()) {expert ->
+            viewModel.setExpertId(expert.id)
         }
-        binding.managerTeenagerListRecyclerView.adapter = adapter
+        binding.managerExpertApproveRecyclerView.adapter = adapter
 
         viewModel.setUrl(resources.getString(R.string.api_ip_server))
         mobileToServer()
-    }
-
-    private fun onExpertListButtonClicked() {
-        val intent = Intent(this, ManagerExpertListActivity::class.java)
-        startActivity(intent)
     }
 
     private fun mobileToServer() {
         lifecycleScope.launch {
             try {
                 val response = viewModel.getUrl().value?.let {
-                    ManagerTeenagerListApi.retrofitService(it).sendsMessage()
+                    ManagerExpertApproveApi.retrofitService(it).sendsMessage()
                 }
                 if (response != null) {
                     if (response.isSuccessful) {
                         val responseBody = response?.body()
                         if (responseBody != null) {
                             // 서버 응답을 확인하는 작업 수행
-                            val responseData = responseBody.teenagers
+                            val responseData = responseBody.experts
                             result = responseData
 
-                            val adapter =
-                                binding.managerTeenagerListRecyclerView.adapter as ManagerTeenagerListAdapter
-                            adapter.managerTeenagerList = result // 어댑터에 데이터 설정
+                            val adapter = binding.managerExpertApproveRecyclerView.adapter as ManagerExpertApproveAdapter
+                            adapter.expertList = result // 어댑터에 데이터 설정
                             adapter.notifyDataSetChanged()
 
                         } else {

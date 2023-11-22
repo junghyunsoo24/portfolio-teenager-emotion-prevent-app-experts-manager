@@ -16,18 +16,18 @@ class ExpertSelectActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val actionBar: ActionBar? = supportActionBar
+        viewModel = AppViewModel.getInstance()
 
+        val actionBar: ActionBar? = supportActionBar
         actionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         actionBar?.setCustomView(R.layout.actionbar_all)
-
         val actionBarTitle = actionBar?.customView?.findViewById<TextView>(R.id.actionBarAll)
         actionBarTitle?.text = "하루친구(전문가)"
 
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
         val binding = ActivityExpertSelectBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        viewModel = AppViewModel.getInstance()
 
         binding.childListBtn.setOnClickListener {
             onChildListButtonClicked()

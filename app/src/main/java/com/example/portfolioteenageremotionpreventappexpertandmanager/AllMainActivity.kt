@@ -23,8 +23,6 @@ class AllMainActivity : AppCompatActivity() {
         val actionBarTitle = actionBar?.customView?.findViewById<TextView>(R.id.actionBarAll)
         actionBarTitle?.text = "하루친구(전문가,관리자)"
 
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-
         val binding = ActivityAllMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

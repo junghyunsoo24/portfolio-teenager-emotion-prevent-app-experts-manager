@@ -30,14 +30,6 @@
             android:name=".AllLoginActivity"
             android:exported="false"
             android:parentActivityName=".AllMainActivity" />
-        <activity
-            android:name=".AllMyPageActivity"
-            android:parentActivityName=".ExpertTeenagerChatActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ExpertTeenagerChatActivity" />
-        </activity>
-
 
 
         <activity
@@ -80,6 +72,10 @@
             android:name=".ManagerRegisterActivity"
             android:exported="false"
             android:parentActivityName=".AllLoginActivity" />
+        <activity
+            android:name=".ManagerExpertApproveActivity"
+            android:exported="false"
+            android:parentActivityName=".ManagerSelectActivity" />
         <activity
             android:name=".ManagerTeenagerListActivity"
             android:exported="false"
