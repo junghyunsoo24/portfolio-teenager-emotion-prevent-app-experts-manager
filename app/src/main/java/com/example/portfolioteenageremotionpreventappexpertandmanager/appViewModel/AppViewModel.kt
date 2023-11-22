@@ -57,6 +57,12 @@ class AppViewModel private constructor() : ViewModel() {
         expertIdLiveData.value = id
     }
 
+    fun removeExpertId(id: String) {
+        if (expertIdLiveData.value == id) {
+            expertIdLiveData.value = null
+        }
+    }
+
     fun getApproveExpertId(): LiveData<String> {
         return approveExpertIdLiveData
     }

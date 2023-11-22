@@ -1,0 +1,3 @@
+package com.example.portfolioteenageremotionpreventappexpertandmanager.managerApprove
+
+data class ManagerApproveData(val id: String)
