@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.portfolioteenageremotionpreventappexpertandmanager.adapter.ManagerTeenagerListAdapter
 import com.example.portfolioteenageremotionpreventappexpertandmanager.appViewModel.AppViewModel
 import com.example.portfolioteenageremotionpreventappexpertandmanager.databinding.ActivityManagerTeenagerlistBinding
+import com.example.portfolioteenageremotionpreventappexpertandmanager.login.LoginApi
 import com.example.portfolioteenageremotionpreventappexpertandmanager.managerTeenagerList.ManagerTeenagerListApi
 import com.example.portfolioteenageremotionpreventappexpertandmanager.managerTeenagerList.Teenager
 import kotlinx.coroutines.launch
@@ -22,8 +23,6 @@ class ManagerTeenagerListActivity : AppCompatActivity(){
     private lateinit var binding: ActivityManagerTeenagerlistBinding
 
     private lateinit var result: List<Teenager>
-    private lateinit var baseUrl: String
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +36,7 @@ class ManagerTeenagerListActivity : AppCompatActivity(){
         actionBar?.setCustomView(R.layout.actionbar_all)
 
         val actionBarTitle = actionBar?.customView?.findViewById<TextView>(R.id.actionBarAll)
-        actionBarTitle?.text = "할당받지않은 청소년목록"
+        actionBarTitle?.text = "할당받지않은청소년"
 
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -51,7 +50,7 @@ class ManagerTeenagerListActivity : AppCompatActivity(){
         }
         binding.managerTeenagerListRecyclerView.adapter = adapter
 
-        baseUrl = resources.getString(R.string.api_ip_server)
+        viewModel.setUrl(resources.getString(R.string.api_ip_server))
         mobileToServer()
     }
 
@@ -63,24 +62,28 @@ class ManagerTeenagerListActivity : AppCompatActivity(){
     private fun mobileToServer() {
         lifecycleScope.launch {
             try {
-                val response = ManagerTeenagerListApi.retrofitService(baseUrl).sendsMessage()
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    if (responseBody != null) {
-                        // 서버 응답을 확인하는 작업 수행
-                        val responseData = responseBody.child
-                        result = responseData
+                val response = viewModel.getUrl().value?.let {
+                    ManagerTeenagerListApi.retrofitService(it).sendsMessage()
+                }
+                if (response != null) {
+                    if (response.isSuccessful) {
+                        val responseBody = response?.body()
+                        if (responseBody != null) {
+                            // 서버 응답을 확인하는 작업 수행
+                            val responseData = responseBody.teenagers
+                            result = responseData
 
-                        val adapter =
-                            binding.managerTeenagerListRecyclerView.adapter as ManagerTeenagerListAdapter
-                        adapter.managerTeenagerList = result // 어댑터에 데이터 설정
-                        adapter.notifyDataSetChanged()
+                            val adapter =
+                                binding.managerTeenagerListRecyclerView.adapter as ManagerTeenagerListAdapter
+                            adapter.managerTeenagerList = result // 어댑터에 데이터 설정
+                            adapter.notifyDataSetChanged()
 
+                        } else {
+                            Log.e("@@@@Error3", "Response body is null")
+                        }
                     } else {
-                        Log.e("@@@@Error3", "Response body is null")
+                        Log.e("@@@@Error2", "Response not successful: ${response.code()}")
                     }
-                } else {
-                    Log.e("@@@@Error2", "Response not successful: ${response.code()}")
                 }
             } catch (Ex: Exception) {
                 Log.e("@@@@Error1", Ex.stackTraceToString())

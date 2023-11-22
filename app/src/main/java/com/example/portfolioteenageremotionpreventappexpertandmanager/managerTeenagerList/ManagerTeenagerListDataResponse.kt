@@ -1,12 +1,17 @@
 package com.example.portfolioteenageremotionpreventappexpertandmanager.managerTeenagerList
 
 data class ManagerTeenagerListDataResponse (
-    val child: List<Teenager>
+    val teenagers: List<Teenager>
 )
 
 data class Teenager(
+    val key: Int,
     val id: String,
     val name: String,
+    val age: Int,
+    val address: String,
+    val gender: String,
     val phone_num: String,
-    val address: String
+    val assignments: Int
+
 )

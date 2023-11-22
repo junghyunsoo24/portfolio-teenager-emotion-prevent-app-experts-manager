@@ -31,7 +31,7 @@ private fun createRetrofit(baseUrl: String): Retrofit {
 interface ManagerExpertListApiService {
     @Headers("Content-Type: application/json")
 
-    @POST("/manager/experts")
+    @POST("/v1/manager/unauthorized-experts")
     suspend fun sendsMessage(): Response<ManagerExpertListDataResponse>
 
 }

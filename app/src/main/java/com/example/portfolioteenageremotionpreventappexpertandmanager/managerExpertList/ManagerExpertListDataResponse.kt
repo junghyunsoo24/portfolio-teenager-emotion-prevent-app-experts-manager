@@ -5,7 +5,10 @@ data class ManagerExpertListDataResponse(
 )
 
 data class Expert(
+    val key: Int,
     val id: String,
     val name: String,
-    val institution: String
+    val email: String,
+    val institution: String,
+    val approval: String
 )

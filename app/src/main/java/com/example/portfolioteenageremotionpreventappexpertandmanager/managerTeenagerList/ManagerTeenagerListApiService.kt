@@ -31,7 +31,7 @@ private fun createRetrofit(baseUrl: String): Retrofit {
 interface ManagerTeenagerListApiService {
     @Headers("Content-Type: application/json")
 
-    @POST("/manager/unmatchedChildren")
+    @POST("/v1/manager/get-unmatched-teenagers")
     suspend fun sendsMessage(): Response<ManagerTeenagerListDataResponse>
 
 }
