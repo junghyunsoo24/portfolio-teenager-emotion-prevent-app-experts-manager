@@ -13,5 +13,6 @@ data class Statistics(
     val sorrow: Int,
     val embarrassed: Int,
     val anger: Int,
-    val hurt: Int
+    val hurt: Int,
+    val sentences: List<String>
 )

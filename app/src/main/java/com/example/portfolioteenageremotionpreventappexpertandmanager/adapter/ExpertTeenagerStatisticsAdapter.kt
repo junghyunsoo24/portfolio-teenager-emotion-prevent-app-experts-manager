@@ -25,7 +25,7 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
         val statistics = teenagerStatistics[position]
         val statisticsInfo = " 날짜: ${statistics.date}\n 기쁨: ${statistics.pleasure}\n 불안: ${statistics.anxiety}\n" +
                 "슬픔: ${statistics.sorrow}\n 당황: ${statistics.embarrassed}\n 화남: ${statistics.anger}\n"+
-                "상처: ${statistics.hurt}\n"
+                "상처: ${statistics.hurt}\n \"문장들: ${statistics.sentences}\\n"
 
         holder.expertTeenagerStatisticsInfoTextView.text = statisticsInfo
 

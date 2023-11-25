@@ -17,6 +17,10 @@ import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeen
 import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerStatistics.ExpertTeenagerStatisticsData
 import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerStatistics.Statistics
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
     private lateinit var viewModel: AppViewModel
@@ -25,7 +29,9 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
     private lateinit var id: String
     private lateinit var baseUrl: String
 
-    private lateinit var child_id: String
+    private lateinit var teenID: String
+    private lateinit var startDate: String
+    private lateinit var endDate: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +52,12 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
         viewModel = AppViewModel.getInstance()
 
         id = viewModel.getUserId().value.toString()
-        child_id = viewModel.getTeenagerId().value.toString()
+        teenID = viewModel.getTeenagerId().value.toString()
+
+        viewModel.setCurrentDate(getCurrentDate())
+        startDate = getLastWeekDate()
+        endDate = getNextDayDate()
+        Log.e("날짜확인", endDate)
 
         val layoutManager = LinearLayoutManager(this)
         binding.expertTeenagerStatisticsRecyclerView.layoutManager = layoutManager
@@ -67,7 +78,7 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
     private fun mobileToServer() {
         lifecycleScope.launch {
             try {
-                val message = ExpertTeenagerStatisticsData(child_id)
+                val message = ExpertTeenagerStatisticsData(teenID, startDate, endDate)
                 val response = ExpertTeenagerStatisticsApi.retrofitService(baseUrl).sendsMessage(message)
                 if (response.isSuccessful) {
                     val responseBody = response.body()
@@ -107,5 +118,29 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun getCurrentDate(): String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val date = Date(System.currentTimeMillis())
+        return dateFormat.format(date)
+    }
+
+    private fun getLastWeekDate(): String {
+        val currentDate = LocalDate.now()
+        val lastWeekDate = currentDate.minusWeeks(1)
+
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault())
+
+        return lastWeekDate.format(formatter)
+    }
+
+    private fun getNextDayDate(): String {
+        val currentDate = LocalDate.now()
+        val nextDayDate = currentDate.plusDays(1)
+
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault())
+
+        return currentDate.format(formatter)
     }
 }
