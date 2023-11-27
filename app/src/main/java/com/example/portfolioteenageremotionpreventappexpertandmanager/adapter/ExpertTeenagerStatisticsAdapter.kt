@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.portfolioteenageremotionpreventappexpertandmanager.R
 import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerStatistics.Statistics
 import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.interfaces.datasets.IPieDataSet
 
 class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, private val onItemClick: (Statistics) -> Unit) :
     RecyclerView.Adapter<ExpertTeenagerStatisticsAdapter.ExpertTeenagerStatisticsViewHolder>() {
@@ -19,7 +19,7 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
     class ExpertTeenagerStatisticsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val expertTeenagerStatisticsInfoTextView: TextView = itemView.findViewById(R.id.expertTeenagerInfoTextViews)
         val emotionChart: BarChart = itemView.findViewById(R.id.emotionChart)
-        val emotionTwoChart: BarChart = itemView.findViewById(R.id.emotionTwoChart)
+        val emotionTwoChart: PieChart = itemView.findViewById(R.id.emotionTwoChart)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExpertTeenagerStatisticsViewHolder {
@@ -39,8 +39,11 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
         val chartData = getBarChartData(statistics)
         holder.emotionChart.data = BarData(chartData)
 
-        val chartTwoData = getTwoBarChartData(statistics)
-        holder.emotionTwoChart.data = BarData(chartTwoData)
+        val chartTwoData = getTwoPieChartData(statistics)
+        holder.emotionTwoChart.data = PieData(chartTwoData)
+
+        holder.emotionChart.description = null
+        holder.emotionTwoChart.description = null
 
         holder.itemView.setOnClickListener {
             onItemClick(statistics)
@@ -65,19 +68,18 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
         return listOf(dataSet)
     }
 
-    private fun getTwoBarChartData(statistics: Statistics): List<BarDataSet> {
-        val entries = mutableListOf<BarEntry>()
-        entries.add(BarEntry(0f, statistics.pleasure.toFloat()))
-        entries.add(BarEntry(1f, (statistics.anxiety + statistics.sorrow + statistics.embarrassed + statistics.anger + statistics.hurt).toFloat()))
+    private fun getTwoPieChartData(statistics: Statistics): PieDataSet {
+        val entries = mutableListOf<PieEntry>()
+        entries.add(PieEntry(statistics.pleasure.toFloat(), "긍정"))
+        entries.add(PieEntry((statistics.anxiety + statistics.sorrow + statistics.embarrassed + statistics.anger + statistics.hurt).toFloat(), "부정"))
 
-
-        val dataSet = BarDataSet(entries, "1.기쁨, 2.부정적감정들").apply {
+        val dataSet = PieDataSet(entries, "").apply {
             setColors(Color.BLUE, Color.RED)
             valueTextColor = Color.BLACK
             valueTextSize = 16f
         }
 
-        return listOf(dataSet)
+        return dataSet
     }
 
     override fun getItemCount() = teenagerStatistics.size
