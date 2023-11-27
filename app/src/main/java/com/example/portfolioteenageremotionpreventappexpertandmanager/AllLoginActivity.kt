@@ -98,7 +98,7 @@ class AllLoginActivity : AppCompatActivity() {
 
     private fun onLoginButtonClicked() {
         val intent: Intent = if(role == "expert"){
-            Intent(this, ExpertSelectActivity::class.java)
+            Intent(this, ExpertTeenagerListActivity::class.java)
         } else{
             Intent(this, ManagerSelectActivity::class.java)
         }
