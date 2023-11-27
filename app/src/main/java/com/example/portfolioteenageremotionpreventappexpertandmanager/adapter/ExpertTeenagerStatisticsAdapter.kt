@@ -11,7 +11,8 @@ import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeen
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.*
-import com.github.mikephil.charting.interfaces.datasets.IPieDataSet
+import com.github.mikephil.charting.formatter.ValueFormatter
+import java.text.DecimalFormat
 
 class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, private val onItemClick: (Statistics) -> Unit) :
     RecyclerView.Adapter<ExpertTeenagerStatisticsAdapter.ExpertTeenagerStatisticsViewHolder>() {
@@ -37,7 +38,7 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
         holder.expertTeenagerStatisticsInfoTextView.text = statisticsInfo
 
         val chartData = getBarChartData(statistics)
-        holder.emotionChart.data = BarData(chartData)
+        holder.emotionChart.data = chartData
 
         val chartTwoData = getTwoPieChartData(statistics)
         holder.emotionTwoChart.data = PieData(chartTwoData)
@@ -50,22 +51,68 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
         }
     }
 
-    private fun getBarChartData(statistics: Statistics): List<BarDataSet> {
-        val entries = mutableListOf<BarEntry>()
-        entries.add(BarEntry(0f, statistics.pleasure.toFloat()))
-        entries.add(BarEntry(1f, statistics.anxiety.toFloat()))
-        entries.add(BarEntry(2f, statistics.sorrow.toFloat()))
-        entries.add(BarEntry(3f, statistics.embarrassed.toFloat()))
-        entries.add(BarEntry(4f, statistics.anger.toFloat()))
-        entries.add(BarEntry(5f, statistics.hurt.toFloat()))
+    private val pastelPink = Color.rgb(255, 182, 193)
+    private val pastelBlue = Color.rgb(173, 216, 230)
+    private fun getBarChartData(statistics: Statistics): BarData {
+        val pleasureEntry = BarEntry(0f, statistics.pleasure.toFloat())
+        val anxietyEntry = BarEntry(1f, statistics.anxiety.toFloat())
+        val sorrowEntry = BarEntry(2f, statistics.sorrow.toFloat())
+        val embarrassedEntry = BarEntry(3f, statistics.embarrassed.toFloat())
+        val angerEntry = BarEntry(4f, statistics.anger.toFloat())
+        val hurtEntry = BarEntry(5f, statistics.hurt.toFloat())
 
-        val dataSet = BarDataSet(entries, "1.기쁨, 2.불안, 3.슬픔, 4.당황, 5.화남, 6.상처").apply {
-            setColors(Color.BLUE, Color.RED, Color.RED, Color.RED, Color.RED, Color.RED)
+        val pleasureDataSet = BarDataSet(listOf(pleasureEntry), "기쁨").apply {
+            setColors(pastelBlue)
+            valueTextColor = Color.BLACK
+            valueTextSize = 16f
+        }
+        val anxietyDataSet = BarDataSet(listOf(anxietyEntry), "불안").apply {
+            setColors(pastelPink)
+            valueTextColor = Color.BLACK
+            valueTextSize = 16f
+        }
+        val sorrowDataSet = BarDataSet(listOf(sorrowEntry), "슬픔").apply {
+            setColors(pastelPink)
+            valueTextColor = Color.BLACK
+            valueTextSize = 16f
+        }
+        val embarrassedDataSet = BarDataSet(listOf(embarrassedEntry), "당황").apply {
+            setColors(pastelPink)
+            valueTextColor = Color.BLACK
+            valueTextSize = 16f
+        }
+        val angerDataSet = BarDataSet(listOf(angerEntry), "화남").apply {
+            setColors(pastelPink)
+            valueTextColor = Color.BLACK
+            valueTextSize = 16f
+        }
+        val hurtDataSet = BarDataSet(listOf(hurtEntry), "상처").apply {
+            setColors(pastelPink)
             valueTextColor = Color.BLACK
             valueTextSize = 16f
         }
 
-        return listOf(dataSet)
+        val decimalFormat = DecimalFormat("#")
+        val valueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                return decimalFormat.format(value.toDouble())
+            }
+        }
+        pleasureDataSet.valueFormatter = valueFormatter
+        anxietyDataSet.valueFormatter = valueFormatter
+        sorrowDataSet.valueFormatter = valueFormatter
+        embarrassedDataSet.valueFormatter = valueFormatter
+        angerDataSet.valueFormatter = valueFormatter
+        hurtDataSet.valueFormatter = valueFormatter
+
+        return BarData(
+            pleasureDataSet,
+            anxietyDataSet,
+            sorrowDataSet,
+            embarrassedDataSet,
+            angerDataSet,
+            hurtDataSet
+        )
     }
 
     private fun getTwoPieChartData(statistics: Statistics): PieDataSet {
@@ -74,10 +121,19 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
         entries.add(PieEntry((statistics.anxiety + statistics.sorrow + statistics.embarrassed + statistics.anger + statistics.hurt).toFloat(), "부정"))
 
         val dataSet = PieDataSet(entries, "").apply {
-            setColors(Color.BLUE, Color.RED)
-            valueTextColor = Color.BLACK
+            setColors(pastelBlue, pastelPink)
+            valueTextColor = Color.WHITE
             valueTextSize = 16f
         }
+
+        val decimalFormat = DecimalFormat("#")
+        val valueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                return decimalFormat.format(value.toDouble())
+            }
+        }
+
+        dataSet.valueFormatter = valueFormatter
 
         return dataSet
     }
