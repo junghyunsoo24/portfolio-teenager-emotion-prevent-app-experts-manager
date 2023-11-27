@@ -57,7 +57,6 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
         viewModel.setCurrentDate(getCurrentDate())
         startDate = getLastWeekDate()
         endDate = getNextDayDate()
-        Log.e("날짜확인", endDate)
 
         val layoutManager = LinearLayoutManager(this)
         binding.expertTeenagerStatisticsRecyclerView.layoutManager = layoutManager

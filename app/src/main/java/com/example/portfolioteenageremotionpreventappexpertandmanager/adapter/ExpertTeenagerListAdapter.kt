@@ -32,13 +32,14 @@ class ExpertTeenagerListAdapter(var expertTeenagerList: List<AllocatedTeenager>,
         }
 
         val allocatedTeenagerInfo = String.format(
-            "아이디: %s\n이름: %s\n나이: %s\n주소: %s\n성별: %s\n핸드폰번호: %s\n",
+            "아이디: %s\n이름: %s\n나이: %s\n주소: %s\n성별: %s\n핸드폰번호: %s\n 위험 비율: %s\n",
             allocatedTeenager.id,
             allocatedTeenager.name,
             allocatedTeenager.age,
             allocatedTeenager.address,
             gender,
-            allocatedTeenager.phone_num
+            allocatedTeenager.phone_num,
+            allocatedTeenager.percentage
         )
 
         holder.expertTeenagerInfoTextView.text = allocatedTeenagerInfo
