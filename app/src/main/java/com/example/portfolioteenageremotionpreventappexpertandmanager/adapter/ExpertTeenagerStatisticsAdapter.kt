@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.portfolioteenageremotionpreventappexpertandmanager.R
 import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerStatistics.Statistics
 import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.data.*
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
 
 class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, private val onItemClick: (Statistics) -> Unit) :
     RecyclerView.Adapter<ExpertTeenagerStatisticsAdapter.ExpertTeenagerStatisticsViewHolder>() {
@@ -29,9 +29,9 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
 
     override fun onBindViewHolder(holder: ExpertTeenagerStatisticsViewHolder, position: Int) {
         val statistics = teenagerStatistics[position]
-        val statisticsInfo = " 날짜: ${statistics.date}\n 기쁨: ${statistics.pleasure}\n 불안: ${statistics.anxiety}\n" +
-                "슬픔: ${statistics.sorrow}\n 당황: ${statistics.embarrassed}\n 화남: ${statistics.anger}\n"+
-                "상처: ${statistics.hurt}\n \"문장들: ${statistics.sentences}\\n"
+        val statisticsInfo = String.format(
+            "날짜: %s\n문장들: %s",
+            statistics.date, statistics.sentences)
 
         holder.expertTeenagerStatisticsInfoTextView.text = statisticsInfo
 
@@ -44,31 +44,6 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
         }
     }
 
-    private fun getChartData(statistics: Statistics): List<ILineDataSet> {
-        val entries = mutableListOf<Entry>()
-        entries.add(Entry(0f, statistics.pleasure.toFloat()))
-        entries.add(Entry(1f, statistics.anxiety.toFloat()))
-        entries.add(Entry(2f, statistics.sorrow.toFloat()))
-        entries.add(Entry(3f, statistics.embarrassed.toFloat()))
-        entries.add(Entry(4f, statistics.anger.toFloat()))
-        entries.add(Entry(5f, statistics.hurt.toFloat()))
-
-        val dataSet = LineDataSet(entries, "감정분석 결과")
-
-        val colors = mutableListOf<Int>()
-        colors.add(Color.BLUE)    // 기쁨
-        colors.add(Color.RED)     // 불안
-        colors.add(Color.RED)     // 슬픔
-        colors.add(Color.RED)     // 당황
-        colors.add(Color.RED)     // 화남
-        colors.add(Color.RED)     // 상처
-
-        dataSet.colors = colors
-        dataSet.valueTextColor = Color.BLACK
-
-        return listOf(dataSet)
-    }
-
     private fun getBarChartData(statistics: Statistics): List<BarDataSet> {
         val entries = mutableListOf<BarEntry>()
         entries.add(BarEntry(0f, statistics.pleasure.toFloat()))
@@ -78,9 +53,10 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
         entries.add(BarEntry(4f, statistics.anger.toFloat()))
         entries.add(BarEntry(5f, statistics.hurt.toFloat()))
 
-        val dataSet = BarDataSet(entries, "Emotion Values")
-        dataSet.color = Color.BLUE
-        dataSet.valueTextColor = Color.BLACK
+        val dataSet = BarDataSet(entries, "1.기쁨, 2.불안, 3.슬픔, 4.당황, 5.화남, 6.상처").apply {
+            setColors(Color.BLUE, Color.RED, Color.RED, Color.RED, Color.RED, Color.RED)
+            valueTextColor = Color.BLACK
+        }
 
         return listOf(dataSet)
     }
