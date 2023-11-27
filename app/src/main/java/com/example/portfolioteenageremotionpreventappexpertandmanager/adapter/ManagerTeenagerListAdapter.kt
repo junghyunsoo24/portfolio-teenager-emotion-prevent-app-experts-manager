@@ -32,7 +32,7 @@ class ManagerTeenagerListAdapter(var managerTeenagerList: List<Teenager>, privat
         }
 
         val teenagerInfo = String.format(
-            "아이디: %s\n이름: %s\n나이: %s\n주소: %s\n성별: %s\n핸드폰번호: %s\n 위험 비율: %s\n",
+            " 아이디: %s\n 이름: %s\n 나이: %s\n 주소: %s\n 성별: %s\n 핸드폰번호: %s\n 위험 비율: %s",
             teenager.id,
             teenager.name,
             teenager.age,

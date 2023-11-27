@@ -19,6 +19,7 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
     class ExpertTeenagerStatisticsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val expertTeenagerStatisticsInfoTextView: TextView = itemView.findViewById(R.id.expertTeenagerInfoTextViews)
         val emotionChart: BarChart = itemView.findViewById(R.id.emotionChart)
+        val emotionTwoChart: BarChart = itemView.findViewById(R.id.emotionTwoChart)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExpertTeenagerStatisticsViewHolder {
@@ -35,9 +36,11 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
 
         holder.expertTeenagerStatisticsInfoTextView.text = statisticsInfo
 
-        // 차트 데이터 설정
         val chartData = getBarChartData(statistics)
         holder.emotionChart.data = BarData(chartData)
+
+        val chartTwoData = getTwoBarChartData(statistics)
+        holder.emotionTwoChart.data = BarData(chartTwoData)
 
         holder.itemView.setOnClickListener {
             onItemClick(statistics)
@@ -56,6 +59,22 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
         val dataSet = BarDataSet(entries, "1.기쁨, 2.불안, 3.슬픔, 4.당황, 5.화남, 6.상처").apply {
             setColors(Color.BLUE, Color.RED, Color.RED, Color.RED, Color.RED, Color.RED)
             valueTextColor = Color.BLACK
+            valueTextSize = 16f
+        }
+
+        return listOf(dataSet)
+    }
+
+    private fun getTwoBarChartData(statistics: Statistics): List<BarDataSet> {
+        val entries = mutableListOf<BarEntry>()
+        entries.add(BarEntry(0f, statistics.pleasure.toFloat()))
+        entries.add(BarEntry(1f, (statistics.anxiety + statistics.sorrow + statistics.embarrassed + statistics.anger + statistics.hurt).toFloat()))
+
+
+        val dataSet = BarDataSet(entries, "1.기쁨, 2.부정적감정들").apply {
+            setColors(Color.BLUE, Color.RED)
+            valueTextColor = Color.BLACK
+            valueTextSize = 16f
         }
 
         return listOf(dataSet)
