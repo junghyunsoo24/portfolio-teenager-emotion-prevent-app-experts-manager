@@ -141,6 +141,6 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
 
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault())
 
-        return currentDate.format(formatter)
+        return nextDayDate.format(formatter)
     }
 }

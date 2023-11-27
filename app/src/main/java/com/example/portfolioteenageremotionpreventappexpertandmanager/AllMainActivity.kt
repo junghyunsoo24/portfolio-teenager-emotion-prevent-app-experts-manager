@@ -26,16 +26,9 @@ class AllMainActivity : AppCompatActivity() {
         val binding = ActivityAllMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.expertBtn.setOnClickListener {
-            viewModel.setUser("1")
+        binding.loginBtn.setOnClickListener {
             onStartButtonClicked()
         }
-
-        binding.managerBtn.setOnClickListener {
-            viewModel.setUser("2")
-            onStartButtonClicked()
-        }
-
     }
 
     private fun onStartButtonClicked() {

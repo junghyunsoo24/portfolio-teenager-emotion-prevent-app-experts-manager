@@ -22,6 +22,8 @@ class AllLoginActivity : AppCompatActivity() {
     private lateinit var id: String
     private lateinit var pw: String
 
+    private lateinit var role: String
+
     private lateinit var viewModel: AppViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,13 +78,6 @@ class AllLoginActivity : AppCompatActivity() {
                     onLoginButtonClicked()
                 }
             }
-            else -> {
-                builder.setTitle("로그인 실패")
-                builder.setMessage("다시 입력하세요")
-                builder.setPositiveButton("확인") { dialog, _ ->
-                    dialog.dismiss()
-                }
-            }
         }
 
         builder.show()
@@ -102,7 +97,7 @@ class AllLoginActivity : AppCompatActivity() {
     }
 
     private fun onLoginButtonClicked() {
-        val intent: Intent = if(viewModel.getUser().value == "1"){
+        val intent: Intent = if(role == "expert"){
             Intent(this, ExpertSelectActivity::class.java)
         } else{
             Intent(this, ManagerSelectActivity::class.java)
@@ -111,7 +106,7 @@ class AllLoginActivity : AppCompatActivity() {
     }
 
     private fun onJoinButtonClicked() {
-        val intent: Intent = if(viewModel.getUser().value == "1"){
+        val intent: Intent = if(role == "expert"){
             Intent(this, ExpertRegisterActivity::class.java)
         } else{
             Intent(this, ManagerRegisterActivity::class.java)
@@ -132,6 +127,8 @@ class AllLoginActivity : AppCompatActivity() {
                         if (responseBody != null) {
                             viewModel.setJwtToken(responseBody.access_token)
                             val responseData = responseBody.role
+
+                            role = responseData
                             showAlertDialog(responseData)
 
                             viewModel.setUserId(id)
