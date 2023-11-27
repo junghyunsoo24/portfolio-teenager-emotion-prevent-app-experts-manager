@@ -1,11 +1,13 @@
 package com.example.portfolioteenageremotionpreventappexpertandmanager
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -33,6 +35,7 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
     private lateinit var startDate: String
     private lateinit var endDate: String
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -125,6 +128,7 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
         return dateFormat.format(date)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun getLastWeekDate(): String {
         val currentDate = LocalDate.now()
         val lastWeekDate = currentDate.minusWeeks(1)
@@ -134,6 +138,7 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
         return lastWeekDate.format(formatter)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun getNextDayDate(): String {
         val currentDate = LocalDate.now()
         val nextDayDate = currentDate.plusDays(1)
