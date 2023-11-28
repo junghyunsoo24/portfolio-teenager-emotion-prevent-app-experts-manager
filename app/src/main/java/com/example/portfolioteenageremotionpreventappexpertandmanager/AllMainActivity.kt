@@ -1,6 +1,7 @@
 package com.example.portfolioteenageremotionpreventappexpertandmanager
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.ActionBar
@@ -26,6 +27,11 @@ class AllMainActivity : AppCompatActivity() {
         val binding = ActivityAllMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val linkTextView: TextView = findViewById(R.id.icon_url)
+        linkTextView.setOnClickListener {
+            openLink()
+        }
+
         binding.loginBtn.setOnClickListener {
             onStartButtonClicked()
         }
@@ -33,6 +39,14 @@ class AllMainActivity : AppCompatActivity() {
 
     private fun onStartButtonClicked() {
         val intent = Intent(this, AllLoginActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun openLink() {
+        val url = "https://Icons8.com"
+
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(url)
         startActivity(intent)
     }
 
