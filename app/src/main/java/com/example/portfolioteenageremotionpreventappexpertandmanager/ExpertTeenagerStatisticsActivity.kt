@@ -89,6 +89,9 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
                         val responseData = responseBody.statistics
                         result = responseData
 
+                        val sortedResult = responseData.sortedByDescending { it.date }
+                        result = sortedResult
+
                         val adapter = binding.expertTeenagerStatisticsRecyclerView.adapter as ExpertTeenagerStatisticsAdapter
                         adapter.teenagerStatistics = result // 어댑터에 데이터 설정
                         adapter.notifyDataSetChanged()

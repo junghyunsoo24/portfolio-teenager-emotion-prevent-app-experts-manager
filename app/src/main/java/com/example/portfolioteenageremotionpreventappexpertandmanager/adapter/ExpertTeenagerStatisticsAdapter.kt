@@ -52,16 +52,13 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
     }
 
     private val pastelPink = Color.rgb(255, 182, 193)
-
     private val indianRed = Color.rgb(205, 92, 92)
     private val salmon = Color.rgb(250, 128, 114)
     private val coral = Color.rgb(255, 127, 80)
     private val lightSalmon = Color.rgb(255, 160, 122)
     private val mistyRose = Color.rgb(255, 228, 225)
 
-
     private val pastelBlue = Color.rgb(173, 216, 230)
-
     private val skyBlue = Color.rgb(135, 206, 235)
     private fun getBarChartData(statistics: Statistics): BarData {
         val pleasureEntry = BarEntry(0f, statistics.pleasure.toFloat())
