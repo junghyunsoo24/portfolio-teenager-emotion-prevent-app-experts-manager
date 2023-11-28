@@ -9,7 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.portfolioteenageremotionpreventappexpertandmanager.R
 import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerStatistics.Statistics
 import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.components.Description
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.ValueFormatter
 import java.text.DecimalFormat
@@ -21,6 +25,7 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
         val expertTeenagerStatisticsInfoTextView: TextView = itemView.findViewById(R.id.expertTeenagerInfoTextViews)
         val emotionChart: BarChart = itemView.findViewById(R.id.emotionChart)
         val emotionTwoChart: PieChart = itemView.findViewById(R.id.emotionTwoChart)
+//        val emotionLineChart: LineChart = itemView.findViewById(R.id.emotionLineChart)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExpertTeenagerStatisticsViewHolder {
@@ -43,8 +48,13 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
         val chartTwoData = getTwoPieChartData(statistics)
         holder.emotionTwoChart.data = PieData(chartTwoData)
 
+//        val lineData = getLineChartData(holder, statistics)
+//        holder.emotionLineChart.data = lineData
+//        holder.emotionLineChart.description = null
+
         holder.emotionChart.description = null
         holder.emotionTwoChart.description = null
+
 
         holder.itemView.setOnClickListener {
             onItemClick(statistics)
@@ -52,6 +62,7 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
     }
 
     private val pastelPink = Color.rgb(255, 182, 193)
+
     private val indianRed = Color.rgb(205, 92, 92)
     private val salmon = Color.rgb(250, 128, 114)
     private val coral = Color.rgb(255, 127, 80)
@@ -60,6 +71,64 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
 
     private val pastelBlue = Color.rgb(173, 216, 230)
     private val skyBlue = Color.rgb(135, 206, 235)
+
+//    private fun getLineChartData(holder: ExpertTeenagerStatisticsViewHolder, statistics: Statistics): LineData {
+//        val entries = mutableListOf<Entry>()
+//
+//        val filteredStatistics = teenagerStatistics.filter { it.date == "2023-11-25T00:00:00.000Z" }
+//
+//        // 각 기간별로 6개의 감정 데이터를 추가합니다.
+//        for (i in filteredStatistics.indices) {
+//            val emotionData = filteredStatistics[i]
+//            entries.add(Entry(i.toFloat(), emotionData.pleasure.toFloat(), emotionData)) // pleasure
+//            entries.add(Entry(i.toFloat(), emotionData.anxiety.toFloat(), emotionData)) // anxiety
+//            entries.add(Entry(i.toFloat(), emotionData.sorrow.toFloat(), emotionData))  // sorrow
+//            entries.add(Entry(i.toFloat(), emotionData.embarrassed.toFloat(), emotionData))  // embarrassed
+//            entries.add(Entry(i.toFloat(), emotionData.anger.toFloat(), emotionData))  // anger
+//            entries.add(Entry(i.toFloat(), emotionData.hurt.toFloat(), emotionData))  // hurt
+//        }
+//
+//        val lineDataSet = LineDataSet(entries, "Emotion Trend").apply {
+//            color = Color.BLUE
+//            lineWidth = 2f
+//            circleRadius = 4f
+//            setCircleColor(Color.BLUE)
+//            valueTextColor = Color.BLACK
+//            valueTextSize = 12f
+//            setDrawValues(true)
+//        }
+//
+//        val decimalFormat = DecimalFormat("#")
+//        val valueFormatter = object : ValueFormatter() {
+//            override fun getFormattedValue(value: Float): String {
+//                return decimalFormat.format(value.toDouble())
+//            }
+//        }
+//
+//        lineDataSet.valueFormatter = valueFormatter
+//
+//        // x축 설정
+//        val xAxis = holder.emotionLineChart.xAxis
+//        xAxis.position = XAxis.XAxisPosition.BOTTOM
+//        xAxis.setDrawGridLines(false)
+//        xAxis.valueFormatter = object : ValueFormatter() {
+//            override fun getFormattedValue(value: Float): String {
+//                // 기간에 대한 포맷을 설정해주세요 (예: "2023-01-01")
+//                return teenagerStatistics[value.toInt()].date
+//            }
+//        }
+////        xAxis.granularity = 1.0f
+//
+//        // y축 설정
+//        val yAxisLeft = holder.emotionLineChart.axisLeft
+//        yAxisLeft.setDrawGridLines(true)
+//
+//        val yAxisRight = holder.emotionLineChart.axisRight
+//        yAxisRight.setDrawGridLines(true)
+//
+//        return LineData(lineDataSet)
+//    }
+
     private fun getBarChartData(statistics: Statistics): BarData {
         val pleasureEntry = BarEntry(0f, statistics.pleasure.toFloat())
         val anxietyEntry = BarEntry(1f, statistics.anxiety.toFloat())

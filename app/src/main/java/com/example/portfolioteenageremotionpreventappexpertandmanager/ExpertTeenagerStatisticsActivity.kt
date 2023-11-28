@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBar
@@ -18,6 +19,7 @@ import com.example.portfolioteenageremotionpreventappexpertandmanager.databindin
 import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerStatistics.ExpertTeenagerStatisticsApi
 import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerStatistics.ExpertTeenagerStatisticsData
 import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerStatistics.Statistics
+import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -68,8 +70,35 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
         }
         binding.expertTeenagerStatisticsRecyclerView.adapter = adapter
 
+        val showCalendarButton: Button = findViewById(R.id.showCalendarButton)
+        showCalendarButton.setOnClickListener {
+            showCalendar()
+        }
+
         baseUrl = resources.getString(R.string.api_ip_server)
         mobileToServer()
+    }
+
+    private fun showCalendar() {
+        val builder = MaterialDatePicker.Builder.datePicker()
+
+        val picker = builder.build()
+
+        // 확인 버튼 클릭 리스너 설정
+        picker.addOnPositiveButtonClickListener { selection ->
+            // 선택된 날짜 처리
+            val selectedDate = Date(selection)
+            // 여기서 선택된 날짜를 사용할 수 있습니다.
+            // 예: TextView에 날짜 설정
+            // selectedDateTextView.text = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(selectedDate)
+        }
+
+        // 취소 버튼 클릭 리스너 설정
+        picker.addOnNegativeButtonClickListener {
+            // 캘린더 선택이 취소될 때의 동작 처리
+        }
+
+        picker.show(supportFragmentManager, picker.toString())
     }
 
     private fun onChildChatButtonClicked() {
