@@ -23,6 +23,8 @@ import io.socket.client.IO
 import io.socket.client.Socket
 import org.json.JSONObject
 import java.net.URISyntaxException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ExpertTeenagerChatActivity : AppCompatActivity() {
     private lateinit var input: String
@@ -46,7 +48,10 @@ class ExpertTeenagerChatActivity : AppCompatActivity() {
 
         viewModel = AppViewModel.getInstance()
 
-        id = viewModel.getUserId().value!!
+        id = viewModel.getUserId().value.toString()
+
+        viewModel.setCurrentDate(getCurrentDate())
+        binding.teenagerChat.text = viewModel.getCurrentDate().value
 
         adapter = ExpertTeenagerChatAdapter(messages)
         binding.teenagerChatRecyclerView.adapter = adapter
@@ -87,18 +92,17 @@ class ExpertTeenagerChatActivity : AppCompatActivity() {
             binding.input.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     input = binding.input.text.toString()
-                    val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                    inputMethodManager.hideSoftInputFromWindow(binding.input.windowToken, 0)
+//                    val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//                    inputMethodManager.hideSoftInputFromWindow(binding.input.windowToken, 0)
                     if (input.isNotBlank()) {
-                        val message = input
                         val messagePair = ExpertTeenagerChatDataPair(input, "")
                         messages.add(messagePair)
-
                         adapter.notifyDataSetChanged()
                         saveExpertChatHistory()
                         scrollToBottom()
 
                         //(2) 채팅을 서버로부터 전송
+                        val message = input
                         val dataToJson2 = roomName?.let{ SocketData(message, it, id) }
                         val jsonObject2 = JSONObject()
                         if (dataToJson2 != null) {
@@ -121,6 +125,30 @@ class ExpertTeenagerChatActivity : AppCompatActivity() {
                     false
                 }
             }
+            binding.chatDeliver.setOnClickListener {
+                input = binding.input.text.toString()
+                if (input.isNotBlank()) {
+                    val messagePair = ExpertTeenagerChatDataPair(input, "")
+                    messages.add(messagePair)
+                    adapter.notifyDataSetChanged()
+                    saveExpertChatHistory()
+                    scrollToBottom()
+                    //(2)메시지 전달
+                    val message = input
+                    val dataToJson2 = roomName?.let{ SocketData(message, it, id) }
+                    val jsonObject2 = JSONObject()
+                    if (dataToJson2 != null)
+                        jsonObject2.put("message", dataToJson2.message)
+                    if (dataToJson2 != null)
+                        jsonObject2.put("room", dataToJson2.room)
+                    if (dataToJson2 != null)
+                        jsonObject2.put("senderID", dataToJson2.senderID)
+                    mSocket.emit("chatMessage", jsonObject2)
+//                        showAlertDialog(message)
+                    binding.input.text = null
+                }
+                true
+            }
         } catch (e: URISyntaxException) {
             e.printStackTrace()
         }
@@ -131,7 +159,7 @@ class ExpertTeenagerChatActivity : AppCompatActivity() {
         actionBar?.setCustomView(R.layout.actionbar_all)
 
         val actionBarTitle = actionBar?.customView?.findViewById<TextView>(R.id.actionBarAll)
-        actionBarTitle?.text = "청소년 상담"
+        actionBarTitle?.text = "청소년 " + viewModel.getTeenagerName().value.toString() + " 상담"
 
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -201,6 +229,12 @@ class ExpertTeenagerChatActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         mSocket.disconnect()
+    }
+
+    private fun getCurrentDate(): String {
+        val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일 EEEE", Locale.getDefault())
+        val date = Date(System.currentTimeMillis())
+        return dateFormat.format(date)
     }
 
     data class SocketData(val message: String?, val room: String, val senderID: String)

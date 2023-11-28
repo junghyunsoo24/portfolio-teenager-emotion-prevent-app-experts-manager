@@ -15,31 +15,44 @@
         android:gravity="center"
         android:text="2023년 11월 8일 수요일"
         android:textColor="#000000"
-        android:textSize="15sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/input"
-        android:layout_width="295dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="552dp"
-        android:gravity="center"
-        android:hint="채팅을 입력 하세요."
-        android:inputType="textPersonName"
-        android:textSize="20sp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/teenagerChatRecyclerView"
+        android:layout_width="388dp"
+        android:layout_height="326dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/teenagerChat" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/teenagerChatRecyclerView"
-        android:layout_width="394dp"
-        android:layout_height="536dp"
+    <EditText
+        android:id="@+id/input"
+        android:layout_width="295dp"
+        android:layout_height="56dp"
+        android:gravity="center"
+        android:hint="채팅을 입력 하세요."
+        android:inputType="textPersonName"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/teenagerChat" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/chat_deliver"
+        android:layout_width="103dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/chat_deliver"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/input" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

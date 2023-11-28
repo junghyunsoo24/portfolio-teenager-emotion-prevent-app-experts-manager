@@ -50,6 +50,7 @@ class ExpertTeenagerListActivity : AppCompatActivity() {
         binding.expertTeenagerListRecyclerView.layoutManager = layoutManager
         val adapter = ExpertTeenagerListAdapter(emptyList()) { allocatedTeenager ->
             viewModel.setTeenagerId(allocatedTeenager.id)
+            viewModel.setTeenagerName(allocatedTeenager.name)
             onTeenagerChatButtonClicked()
         }
         binding.expertTeenagerListRecyclerView.adapter = adapter
@@ -79,7 +80,6 @@ class ExpertTeenagerListActivity : AppCompatActivity() {
                         val adapter = binding.expertTeenagerListRecyclerView.adapter as ExpertTeenagerListAdapter
                         adapter.expertTeenagerList = result // 어댑터에 데이터 설정
                         adapter.notifyDataSetChanged()
-
 
                     } else {
                         Log.e("@@@@Error3", "Response body is null")
