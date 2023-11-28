@@ -52,7 +52,17 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
     }
 
     private val pastelPink = Color.rgb(255, 182, 193)
+
+    private val indianRed = Color.rgb(205, 92, 92)
+    private val salmon = Color.rgb(250, 128, 114)
+    private val coral = Color.rgb(255, 127, 80)
+    private val lightSalmon = Color.rgb(255, 160, 122)
+    private val mistyRose = Color.rgb(255, 228, 225)
+
+
     private val pastelBlue = Color.rgb(173, 216, 230)
+
+    private val skyBlue = Color.rgb(135, 206, 235)
     private fun getBarChartData(statistics: Statistics): BarData {
         val pleasureEntry = BarEntry(0f, statistics.pleasure.toFloat())
         val anxietyEntry = BarEntry(1f, statistics.anxiety.toFloat())
@@ -62,32 +72,32 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
         val hurtEntry = BarEntry(5f, statistics.hurt.toFloat())
 
         val pleasureDataSet = BarDataSet(listOf(pleasureEntry), "기쁨").apply {
-            setColors(pastelBlue)
+            setColors(skyBlue)
             valueTextColor = Color.BLACK
             valueTextSize = 16f
         }
         val anxietyDataSet = BarDataSet(listOf(anxietyEntry), "불안").apply {
-            setColors(pastelPink)
+            setColors(indianRed)
             valueTextColor = Color.BLACK
             valueTextSize = 16f
         }
         val sorrowDataSet = BarDataSet(listOf(sorrowEntry), "슬픔").apply {
-            setColors(pastelPink)
+            setColors(salmon)
             valueTextColor = Color.BLACK
             valueTextSize = 16f
         }
         val embarrassedDataSet = BarDataSet(listOf(embarrassedEntry), "당황").apply {
-            setColors(pastelPink)
+            setColors(coral)
             valueTextColor = Color.BLACK
             valueTextSize = 16f
         }
         val angerDataSet = BarDataSet(listOf(angerEntry), "화남").apply {
-            setColors(pastelPink)
+            setColors(lightSalmon)
             valueTextColor = Color.BLACK
             valueTextSize = 16f
         }
         val hurtDataSet = BarDataSet(listOf(hurtEntry), "상처").apply {
-            setColors(pastelPink)
+            setColors(mistyRose)
             valueTextColor = Color.BLACK
             valueTextSize = 16f
         }
