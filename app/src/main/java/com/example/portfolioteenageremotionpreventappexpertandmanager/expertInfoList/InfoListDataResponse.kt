@@ -6,5 +6,5 @@ data class InfoListDataResponse(
     val name: String,
     val email: String,
     val institution: String,
-    val approval: String
+    val approval: String?
 )
