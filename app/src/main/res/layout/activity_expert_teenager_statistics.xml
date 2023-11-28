@@ -9,8 +9,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/expert_teenager_statistics_recyclerView"
-        android:layout_width="314dp"
-        android:layout_height="762dp"
+        android:layout_width="358dp"
+        android:layout_height="839dp"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.365"

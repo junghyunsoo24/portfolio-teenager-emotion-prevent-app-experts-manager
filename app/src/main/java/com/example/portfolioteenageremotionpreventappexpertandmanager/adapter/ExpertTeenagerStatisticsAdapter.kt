@@ -32,7 +32,7 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
     override fun onBindViewHolder(holder: ExpertTeenagerStatisticsViewHolder, position: Int) {
         val statistics = teenagerStatistics[position]
         val statisticsInfo = String.format(
-            "날짜: %s\n문장들: %s",
+            "<날짜: %s>\n\n문장들: %s",
             statistics.date, statistics.sentences)
 
         holder.expertTeenagerStatisticsInfoTextView.text = statisticsInfo
