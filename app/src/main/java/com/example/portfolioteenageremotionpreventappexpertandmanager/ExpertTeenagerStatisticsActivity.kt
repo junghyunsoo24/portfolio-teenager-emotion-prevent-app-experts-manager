@@ -37,6 +37,7 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
     private lateinit var startDate: String
     private lateinit var endDate: String
 
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,17 +81,34 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
     }
 
     private fun showCalendar() {
-        val builder = MaterialDatePicker.Builder.datePicker()
-
+        val builder = MaterialDatePicker.Builder.dateRangePicker()
         val picker = builder.build()
 
-        // 확인 버튼 클릭 리스너 설정
         picker.addOnPositiveButtonClickListener { selection ->
-            // 선택된 날짜 처리
-            val selectedDate = Date(selection)
-            // 여기서 선택된 날짜를 사용할 수 있습니다.
-            // 예: TextView에 날짜 설정
-            // selectedDateTextView.text = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(selectedDate)
+            val startDateMillis = selection.first
+            val endDateMillis = selection.second
+
+            val startsDate = Date(startDateMillis)
+            val endsDate = Date(endDateMillis)
+
+            // Calendar 인스턴스 생성 및 시작 날짜 설정
+            val startCalendar = Calendar.getInstance()
+            startCalendar.time = startsDate
+
+//            // 시작 날짜에 1일을 더함
+//            startCalendar.add(Calendar.DAY_OF_MONTH, 1)
+
+            // 종료 날짜에 1일을 더함
+            val endCalendar = Calendar.getInstance()
+            endCalendar.time = endsDate
+            endCalendar.add(Calendar.DAY_OF_MONTH, 1)
+
+            // 더한 날짜를 SimpleDateFormat을 사용하여 문자열로 변환
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            startDate = dateFormat.format(startCalendar.time)
+            endDate = dateFormat.format(endCalendar.time)
+
+            mobileToServer()
         }
 
         // 취소 버튼 클릭 리스너 설정
