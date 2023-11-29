@@ -50,7 +50,7 @@ class ExpertRegisterActivity : AppCompatActivity(){
         }
     }
 
-    private fun onRegistButtonClicked(){
+    private fun onRegisterButtonClicked(){
         val intent = Intent(this, AllLoginActivity::class.java)
         startActivity(intent)
     }
@@ -62,7 +62,7 @@ class ExpertRegisterActivity : AppCompatActivity(){
 
         builder.setPositiveButton("확인") { dialog, _ ->
             dialog.dismiss()
-            onRegistButtonClicked()
+            onRegisterButtonClicked()
         }
 
         builder.show()

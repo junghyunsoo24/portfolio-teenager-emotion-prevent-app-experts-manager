@@ -5,8 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -18,13 +17,16 @@ import com.example.portfolioteenageremotionpreventappexpertandmanager.login.Logi
 import com.example.portfolioteenageremotionpreventappexpertandmanager.login.LoginData
 import kotlinx.coroutines.launch
 
-class AllLoginActivity : AppCompatActivity() {
+class AllLoginActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var id: String
     private lateinit var pw: String
 
     private lateinit var role: String
 
     private lateinit var viewModel: AppViewModel
+
+    private lateinit var register: String
+    private lateinit var registerValue: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +49,13 @@ class AllLoginActivity : AppCompatActivity() {
         val login: Button = findViewById(R.id.login_btn)
         val join: Button = findViewById(R.id.join_btn)
 
+        val registers = arrayOf("전문가", "관리자")
+        val spinner = findViewById<Spinner>(R.id.spinner_gender)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, registers)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+        spinner.onItemSelectedListener = this
+
         login.setOnClickListener {
             id = binding.idInput.text.toString()
             pw = binding.pwdInput.text.toString()
@@ -55,8 +64,24 @@ class AllLoginActivity : AppCompatActivity() {
         }
 
         join.setOnClickListener {
+            registerValue?.let { selectedRegister ->
+                register = if (selectedRegister == "전문가") "0" else "1"
+            }
             onJoinButtonClicked()
         }
+    }
+
+    override fun onItemSelected(
+        parent: AdapterView<*>?,
+        view: android.view.View?,
+        position: Int,
+        id: Long
+    ) {
+        registerValue = parent?.getItemAtPosition(position).toString()
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+
     }
 
     private fun showAlertDialog(message: String) {
@@ -106,7 +131,8 @@ class AllLoginActivity : AppCompatActivity() {
     }
 
     private fun onJoinButtonClicked() {
-        val intent: Intent = if(role == "expert"){
+
+        val intent: Intent = if(register == "0"){
             Intent(this, ExpertRegisterActivity::class.java)
         } else{
             Intent(this, ManagerRegisterActivity::class.java)

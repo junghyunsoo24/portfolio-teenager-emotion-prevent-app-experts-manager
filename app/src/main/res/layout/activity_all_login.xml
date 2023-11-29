@@ -132,6 +132,12 @@
                 android:text="회원가입"
                 android:textSize="14sp"
                 android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinner_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:gravity="right"></Spinner>
         </LinearLayout>
 
     </LinearLayout>
