@@ -51,6 +51,7 @@ class ExpertTeenagerListActivity : AppCompatActivity() {
         val adapter = ExpertTeenagerListAdapter(emptyList()) { allocatedTeenager ->
             viewModel.setTeenagerId(allocatedTeenager.id)
             viewModel.setTeenagerName(allocatedTeenager.name)
+            viewModel.setPercentage(allocatedTeenager.percentage)
             onTeenagerChatButtonClicked()
         }
         binding.expertTeenagerListRecyclerView.adapter = adapter
@@ -75,7 +76,10 @@ class ExpertTeenagerListActivity : AppCompatActivity() {
                         // 서버 응답을 확인하는 작업 수행
                         val responseData = responseBody.teenagers
                         result = responseData
+
                         result = result.sortedByDescending { it.percentage }
+
+
 
                         val adapter = binding.expertTeenagerListRecyclerView.adapter as ExpertTeenagerListAdapter
                         adapter.expertTeenagerList = result // 어댑터에 데이터 설정

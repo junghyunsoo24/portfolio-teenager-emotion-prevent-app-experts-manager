@@ -7,11 +7,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/manager_expertList_recyclerView"
-        android:layout_width="329dp"
-        android:layout_height="552dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="371dp"
+        android:layout_height="858dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.365"
+        app:layout_constraintHorizontal_bias="0.421"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,12 +29,22 @@ class AppViewModel private constructor() : ViewModel() {
 
     private val currentDate = MutableLiveData<String>()
 
+    private val percentages = MutableLiveData<Int>()
+
     fun setJwtToken(token: String) {
         jwtTokenLiveData.value = token
     }
 
     fun getJwtToken(): LiveData<String> {
         return jwtTokenLiveData
+    }
+
+    fun setPercentage(newPercentage: Int) {
+        percentages.value = newPercentage
+    }
+
+    fun getPercentage(): LiveData<Int> {
+        return percentages
     }
 
     fun setUserId(id: String) {
