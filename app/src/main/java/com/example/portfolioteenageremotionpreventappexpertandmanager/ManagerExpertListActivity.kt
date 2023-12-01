@@ -46,6 +46,7 @@ class ManagerExpertListActivity : AppCompatActivity() {
         binding.managerExpertListRecyclerView.layoutManager = layoutManager
         val adapter = ManagerExpertListAdapter(emptyList()) { approveExpert ->
             viewModel.setApproveExpertId(approveExpert.id)
+            viewModel.setExpertName(approveExpert.name)
             viewModel.setUrl(resources.getString(R.string.api_ip_server))
             allocateDataToServer()
 
@@ -87,8 +88,8 @@ class ManagerExpertListActivity : AppCompatActivity() {
     private fun showAlertDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("청소년 할당 성공!")
-        builder.setMessage("청소년: " + viewModel.getTeenagerId().value +
-                "\n" + "전문가: " + viewModel.getApproveExpertId().value)
+        builder.setMessage("청소년: " + viewModel.getTeenagerName().value +
+                "\n" + "전문가: " + viewModel.getExpertName().value)
 
         builder.setPositiveButton("확인") { dialog, _ ->
             dialog.dismiss()

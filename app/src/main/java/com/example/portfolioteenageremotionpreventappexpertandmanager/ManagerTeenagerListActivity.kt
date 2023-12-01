@@ -46,6 +46,7 @@ class ManagerTeenagerListActivity : AppCompatActivity(){
         binding.managerTeenagerListRecyclerView.layoutManager = layoutManager
         val adapter = ManagerTeenagerListAdapter(emptyList()) { teenager ->
             viewModel.setTeenagerId(teenager.id)
+            viewModel.setTeenagerName(teenager.name)
             onExpertListButtonClicked()
         }
         binding.managerTeenagerListRecyclerView.adapter = adapter

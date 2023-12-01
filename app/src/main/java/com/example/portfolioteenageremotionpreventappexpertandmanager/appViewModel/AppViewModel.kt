@@ -14,6 +14,7 @@ class AppViewModel private constructor() : ViewModel() {
     private val userInstitutionLiveData = MutableLiveData<String>()
 
     private val teenagerNameLiveData = MutableLiveData<String>()
+    private val expertNameLiveData = MutableLiveData<String>()
 
     private val messageListLiveData = MutableLiveData<List<String>>()
 
@@ -102,6 +103,13 @@ class AppViewModel private constructor() : ViewModel() {
 
     fun setTeenagerName(teenagerName: String) {
         teenagerNameLiveData.value = teenagerName
+    }
+    fun getExpertName(): LiveData<String> {
+        return expertNameLiveData
+    }
+
+    fun setExpertName(expertName: String) {
+        expertNameLiveData.value = expertName
     }
     fun getTeenagerName(): LiveData<String> {
         return teenagerNameLiveData
