@@ -3,6 +3,8 @@ package com.example.portfolioteenageremotionpreventappexpertandmanager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
@@ -96,6 +98,13 @@ class ExpertInfoSetListActivity : AppCompatActivity(){
     private fun onInfoListButtonClicked() {
         val intent: Intent = Intent(this, ExpertInfoListActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val imm: InputMethodManager =
+            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        return super.dispatchTouchEvent(ev)
     }
 
     private fun mobileToServer() {

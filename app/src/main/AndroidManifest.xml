@@ -52,7 +52,8 @@
             android:name=".ExpertTeenagerChatActivity"
             android:exported="false"
             android:parentActivityName=".ExpertTeenagerStatisticsActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
+            android:windowSoftInputMode="adjustPan"/>
+<!--            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>-->
         <activity
             android:name=".ExpertTeenagerStatisticsActivity"
             android:exported="false"

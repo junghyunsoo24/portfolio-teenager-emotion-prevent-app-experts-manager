@@ -123,7 +123,7 @@ class AllLoginActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
 
     private fun onLoginButtonClicked() {
         val intent: Intent = if(role == "expert"){
-            Intent(this, ExpertTeenagerListActivity::class.java)
+            Intent(this, ExpertSelectActivity::class.java)
         } else{
             Intent(this, ManagerSelectActivity::class.java)
         }

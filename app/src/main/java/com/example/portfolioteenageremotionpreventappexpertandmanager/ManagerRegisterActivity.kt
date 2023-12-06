@@ -3,6 +3,8 @@ package com.example.portfolioteenageremotionpreventappexpertandmanager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
@@ -63,6 +65,13 @@ class ManagerRegisterActivity : AppCompatActivity() {
         }
 
         builder.show()
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val imm: InputMethodManager =
+            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        return super.dispatchTouchEvent(ev)
     }
 
     private fun mobileToServer() {

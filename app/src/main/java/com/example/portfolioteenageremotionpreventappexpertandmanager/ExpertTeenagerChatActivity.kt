@@ -3,6 +3,7 @@ package com.example.portfolioteenageremotionpreventappexpertandmanager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MotionEvent
@@ -36,7 +37,7 @@ class ExpertTeenagerChatActivity : AppCompatActivity() {
 
     private lateinit var viewModel: AppViewModel
 
-    private val expertKey = "expert_history"
+    private lateinit var expertKey: String
 
     private lateinit var mSocket: Socket
 
@@ -56,6 +57,7 @@ class ExpertTeenagerChatActivity : AppCompatActivity() {
         adapter = ExpertTeenagerChatAdapter(messages)
         binding.teenagerChatRecyclerView.adapter = adapter
         binding.teenagerChatRecyclerView.layoutManager = LinearLayoutManager(this)
+        expertKey = "expert_history_${viewModel.getTeenagerId().value}"
 
         try {
             val options = IO.Options()
@@ -194,23 +196,26 @@ class ExpertTeenagerChatActivity : AppCompatActivity() {
 
     private fun scrollToBottom() {
         binding.teenagerChatRecyclerView.post {
-            binding.teenagerChatRecyclerView.smoothScrollToPosition(adapter.itemCount - 1)
+            binding.teenagerChatRecyclerView.scrollToPosition(messages.size - 1)
         }
     }
 
-    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
-        val imm: InputMethodManager =
-            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
-        return super.dispatchTouchEvent(ev)
-    }
+//    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+//        val imm: InputMethodManager =
+//            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+//        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+//        return super.dispatchTouchEvent(ev)
+//    }
 
     private fun loadChatHistory() {
         val sharedPreferences = getSharedPreferences(expertKey, Context.MODE_PRIVATE)
         val chatHistoryJson = sharedPreferences.getString(id, "")
 
         if (!chatHistoryJson.isNullOrEmpty()) {
-            val chatHistory = Gson().fromJson<List<ExpertTeenagerChatDataPair>>(chatHistoryJson, object : TypeToken<List<ExpertTeenagerChatDataPair>>() {}.type)
+            val chatHistory = Gson().fromJson<List<ExpertTeenagerChatDataPair>>(
+                chatHistoryJson,
+                object : TypeToken<List<ExpertTeenagerChatDataPair>>() {}.type
+            )
             messages.addAll(chatHistory)
             adapter.notifyDataSetChanged()
             scrollToBottom()
