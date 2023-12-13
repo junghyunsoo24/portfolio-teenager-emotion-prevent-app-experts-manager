@@ -13,12 +13,12 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.portfolioteenageremotionpreventappexpertandmanager.adapter.ExpertTeenagerStatisticsAdapter
+import com.example.portfolioteenageremotionpreventappexpertandmanager.adapter.TeenagerStatisticsAdapter
 import com.example.portfolioteenageremotionpreventappexpertandmanager.appViewModel.AppViewModel
 import com.example.portfolioteenageremotionpreventappexpertandmanager.databinding.ActivityExpertTeenagerStatisticsBinding
-import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerStatistics.ExpertTeenagerStatisticsApi
-import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerStatistics.ExpertTeenagerStatisticsData
-import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerStatistics.Statistics
+import com.example.portfolioteenageremotionpreventappexpertandmanager.teenagerStatistics.ExpertTeenagerStatisticsApi
+import com.example.portfolioteenageremotionpreventappexpertandmanager.teenagerStatistics.StatisticsData
+import com.example.portfolioteenageremotionpreventappexpertandmanager.teenagerStatistics.Statistics
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -65,7 +65,7 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.expertTeenagerStatisticsRecyclerView.layoutManager = layoutManager
-        val adapter = ExpertTeenagerStatisticsAdapter(emptyList()) {
+        val adapter = TeenagerStatisticsAdapter(emptyList()) {
             onChildChatButtonClicked()
         }
         binding.expertTeenagerStatisticsRecyclerView.adapter = adapter
@@ -118,7 +118,7 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
     private fun mobileToServer() {
         lifecycleScope.launch {
             try {
-                val message = ExpertTeenagerStatisticsData(teenID, startDate, endDate)
+                val message = StatisticsData(teenID, startDate, endDate)
                 val response = ExpertTeenagerStatisticsApi.retrofitService(baseUrl).sendsMessage(message)
                 if (response.isSuccessful) {
                     val responseBody = response.body()
@@ -129,7 +129,7 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
                         val sortedResult = responseData.sortedByDescending { it.date }
                         result = sortedResult
 
-                        val adapter = binding.expertTeenagerStatisticsRecyclerView.adapter as ExpertTeenagerStatisticsAdapter
+                        val adapter = binding.expertTeenagerStatisticsRecyclerView.adapter as TeenagerStatisticsAdapter
                         adapter.teenagerStatistics = result
                         adapter.notifyDataSetChanged()
 

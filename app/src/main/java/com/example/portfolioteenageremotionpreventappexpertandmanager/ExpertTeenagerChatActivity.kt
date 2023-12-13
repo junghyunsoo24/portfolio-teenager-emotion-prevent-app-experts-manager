@@ -3,21 +3,17 @@ package com.example.portfolioteenageremotionpreventappexpertandmanager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.MotionEvent
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.portfolioteenageremotionpreventappexpertandmanager.adapter.ExpertTeenagerChatAdapter
+import com.example.portfolioteenageremotionpreventappexpertandmanager.adapter.TeenagerChatAdapter
 import com.example.portfolioteenageremotionpreventappexpertandmanager.appViewModel.AppViewModel
 import com.example.portfolioteenageremotionpreventappexpertandmanager.databinding.ActivityExpertTeenagerchatBinding
-import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerChat.ExpertTeenagerChatDataPair
+import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerChat.TeenagerChatDataPair
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import io.socket.client.IO
@@ -31,8 +27,8 @@ class ExpertTeenagerChatActivity : AppCompatActivity() {
     private lateinit var input: String
     private lateinit var id: String
 
-    private lateinit var adapter: ExpertTeenagerChatAdapter
-    private val messages = mutableListOf<ExpertTeenagerChatDataPair>()
+    private lateinit var adapter: TeenagerChatAdapter
+    private val messages = mutableListOf<TeenagerChatDataPair>()
     private lateinit var binding: ActivityExpertTeenagerchatBinding
 
     private lateinit var viewModel: AppViewModel
@@ -54,7 +50,7 @@ class ExpertTeenagerChatActivity : AppCompatActivity() {
         viewModel.setCurrentDate(getCurrentDate())
         binding.teenagerChat.text = viewModel.getCurrentDate().value
 
-        adapter = ExpertTeenagerChatAdapter(messages)
+        adapter = TeenagerChatAdapter(messages)
         binding.teenagerChatRecyclerView.adapter = adapter
         binding.teenagerChatRecyclerView.layoutManager = LinearLayoutManager(this)
         expertKey = "expert_history_${viewModel.getTeenagerId().value}"
@@ -81,7 +77,7 @@ class ExpertTeenagerChatActivity : AppCompatActivity() {
 
                 if (senderID != id) {
                     runOnUiThread {
-                        val messagePair = ExpertTeenagerChatDataPair("", roomMessage)
+                        val messagePair = TeenagerChatDataPair("", roomMessage)
                         messages.add(messagePair)
 
                         adapter.notifyDataSetChanged()
@@ -97,7 +93,7 @@ class ExpertTeenagerChatActivity : AppCompatActivity() {
 //                    val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 //                    inputMethodManager.hideSoftInputFromWindow(binding.input.windowToken, 0)
                     if (input.isNotBlank()) {
-                        val messagePair = ExpertTeenagerChatDataPair(input, "")
+                        val messagePair = TeenagerChatDataPair(input, "")
                         messages.add(messagePair)
                         adapter.notifyDataSetChanged()
                         saveExpertChatHistory()
@@ -128,7 +124,7 @@ class ExpertTeenagerChatActivity : AppCompatActivity() {
             binding.chatDeliver.setOnClickListener {
                 input = binding.input.text.toString()
                 if (input.isNotBlank()) {
-                    val messagePair = ExpertTeenagerChatDataPair(input, "")
+                    val messagePair = TeenagerChatDataPair(input, "")
                     messages.add(messagePair)
                     adapter.notifyDataSetChanged()
                     saveExpertChatHistory()
@@ -192,9 +188,9 @@ class ExpertTeenagerChatActivity : AppCompatActivity() {
         val chatHistoryJson = sharedPreferences.getString(id, "")
 
         if (!chatHistoryJson.isNullOrEmpty()) {
-            val chatHistory = Gson().fromJson<List<ExpertTeenagerChatDataPair>>(
+            val chatHistory = Gson().fromJson<List<TeenagerChatDataPair>>(
                 chatHistoryJson,
-                object : TypeToken<List<ExpertTeenagerChatDataPair>>() {}.type
+                object : TypeToken<List<TeenagerChatDataPair>>() {}.type
             )
             messages.addAll(chatHistory)
             adapter.notifyDataSetChanged()

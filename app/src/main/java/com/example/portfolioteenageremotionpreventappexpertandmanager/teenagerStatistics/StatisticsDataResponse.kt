@@ -1,6 +1,4 @@
-package com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerStatistics
-
-import java.util.*
+package com.example.portfolioteenageremotionpreventappexpertandmanager.teenagerStatistics
 
 data class ExpertTeenagerStatisticsDataResponse(
     val statistics: List<Statistics>

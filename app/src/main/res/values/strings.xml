@@ -10,8 +10,8 @@
     <string name="api_docker_server">http://15.164.111.16:8000</string>
     <string name="chat_docker_server">http://15.164.111.16:3000</string>
 
-    <string name="api_ip_server">http://202.31.202.147:80</string>
-    <string name="chat_ip_server">http://202.31.202.147:80</string>
+    <string name="api_ip_server">http://10.0.2.2:8000</string>
+    <string name="chat_ip_server">http://10.0.2.2:8000</string>
 
 
 </resources>

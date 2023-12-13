@@ -9,7 +9,7 @@ import com.example.portfolioteenageremotionpreventappexpertandmanager.R
 import com.example.portfolioteenageremotionpreventappexpertandmanager.managerExpertList.ApproveExpert
 
 
-class ManagerExpertListAdapter(var approveExpertList: List<ApproveExpert>, private val onItemClick: (ApproveExpert) -> Unit) : RecyclerView.Adapter<ManagerExpertListAdapter.ExpertViewHolder>() {
+class ExpertListAdapter(var approveExpertList: List<ApproveExpert>, private val onItemClick: (ApproveExpert) -> Unit) : RecyclerView.Adapter<ExpertListAdapter.ExpertViewHolder>() {
 
     class ExpertViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val expertInfoTextView: TextView = itemView.findViewById(R.id.expertInfoTextView)

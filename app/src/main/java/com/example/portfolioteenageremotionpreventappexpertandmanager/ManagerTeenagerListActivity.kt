@@ -3,19 +3,16 @@ package com.example.portfolioteenageremotionpreventappexpertandmanager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.portfolioteenageremotionpreventappexpertandmanager.adapter.ManagerTeenagerListAdapter
+import com.example.portfolioteenageremotionpreventappexpertandmanager.adapter.TeenagerListAdapter
 import com.example.portfolioteenageremotionpreventappexpertandmanager.appViewModel.AppViewModel
 import com.example.portfolioteenageremotionpreventappexpertandmanager.databinding.ActivityManagerTeenagerlistBinding
-import com.example.portfolioteenageremotionpreventappexpertandmanager.login.LoginApi
-import com.example.portfolioteenageremotionpreventappexpertandmanager.managerTeenagerList.ManagerTeenagerListApi
-import com.example.portfolioteenageremotionpreventappexpertandmanager.managerTeenagerList.Teenager
+import com.example.portfolioteenageremotionpreventappexpertandmanager.teenagerList.ManagerTeenagerListApi
+import com.example.portfolioteenageremotionpreventappexpertandmanager.teenagerList.Teenager
 import kotlinx.coroutines.launch
 
 class ManagerTeenagerListActivity : AppCompatActivity(){
@@ -44,7 +41,7 @@ class ManagerTeenagerListActivity : AppCompatActivity(){
 
         val layoutManager = LinearLayoutManager(this)
         binding.managerTeenagerListRecyclerView.layoutManager = layoutManager
-        val adapter = ManagerTeenagerListAdapter(emptyList()) { teenager ->
+        val adapter = TeenagerListAdapter(emptyList()) { teenager ->
             viewModel.setTeenagerId(teenager.id)
             viewModel.setTeenagerName(teenager.name)
             onExpertListButtonClicked()
@@ -75,7 +72,7 @@ class ManagerTeenagerListActivity : AppCompatActivity(){
                             result = result.sortedByDescending { it.percentage }
 
                             val adapter =
-                                binding.managerTeenagerListRecyclerView.adapter as ManagerTeenagerListAdapter
+                                binding.managerTeenagerListRecyclerView.adapter as TeenagerListAdapter
                             adapter.managerTeenagerList = result // 어댑터에 데이터 설정
                             adapter.notifyDataSetChanged()
 

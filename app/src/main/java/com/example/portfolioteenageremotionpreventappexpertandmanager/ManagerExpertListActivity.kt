@@ -8,7 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.portfolioteenageremotionpreventappexpertandmanager.adapter.ManagerExpertListAdapter
+import com.example.portfolioteenageremotionpreventappexpertandmanager.adapter.ExpertListAdapter
 import com.example.portfolioteenageremotionpreventappexpertandmanager.appViewModel.AppViewModel
 import com.example.portfolioteenageremotionpreventappexpertandmanager.databinding.ActivityManagerExpertlistBinding
 import com.example.portfolioteenageremotionpreventappexpertandmanager.managerAllocate.AllocateApi
@@ -44,7 +44,7 @@ class ManagerExpertListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.managerExpertListRecyclerView.layoutManager = layoutManager
-        val adapter = ManagerExpertListAdapter(emptyList()) { approveExpert ->
+        val adapter = ExpertListAdapter(emptyList()) { approveExpert ->
             viewModel.setApproveExpertId(approveExpert.id)
             viewModel.setExpertName(approveExpert.name)
             viewModel.setUrl(resources.getString(R.string.api_ip_server))
@@ -111,7 +111,7 @@ class ManagerExpertListActivity : AppCompatActivity() {
                             result = responseData
 
                             val adapter =
-                                binding.managerExpertListRecyclerView.adapter as ManagerExpertListAdapter
+                                binding.managerExpertListRecyclerView.adapter as ExpertListAdapter
                             adapter.approveExpertList = result // 어댑터에 데이터 설정
                             adapter.notifyDataSetChanged()
 

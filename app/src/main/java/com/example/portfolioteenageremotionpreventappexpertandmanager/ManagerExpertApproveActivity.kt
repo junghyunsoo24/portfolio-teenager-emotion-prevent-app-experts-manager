@@ -8,13 +8,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.portfolioteenageremotionpreventappexpertandmanager.adapter.ManagerExpertApproveAdapter
+import com.example.portfolioteenageremotionpreventappexpertandmanager.adapter.ExpertApproveAdapter
 import com.example.portfolioteenageremotionpreventappexpertandmanager.appViewModel.AppViewModel
 import com.example.portfolioteenageremotionpreventappexpertandmanager.databinding.ActivityManagerExpertapproveBinding
 import com.example.portfolioteenageremotionpreventappexpertandmanager.managerApprove.ManagerApproveApi
-import com.example.portfolioteenageremotionpreventappexpertandmanager.managerApprove.ManagerApproveData
-import com.example.portfolioteenageremotionpreventappexpertandmanager.managerExpertApprove.Expert
-import com.example.portfolioteenageremotionpreventappexpertandmanager.managerExpertApprove.ManagerExpertApproveApi
+import com.example.portfolioteenageremotionpreventappexpertandmanager.managerApprove.ApproveData
+import com.example.portfolioteenageremotionpreventappexpertandmanager.expertApprove.Expert
+import com.example.portfolioteenageremotionpreventappexpertandmanager.expertApprove.ManagerExpertApproveApi
 import kotlinx.coroutines.launch
 
 class ManagerExpertApproveActivity : AppCompatActivity(){
@@ -43,7 +43,7 @@ class ManagerExpertApproveActivity : AppCompatActivity(){
 
         val layoutManager = LinearLayoutManager(this)
         binding.managerExpertApproveRecyclerView.layoutManager = layoutManager
-        val adapter = ManagerExpertApproveAdapter(emptyList()) {expert ->
+        val adapter = ExpertApproveAdapter(emptyList()) { expert ->
             viewModel.setExpertId(expert.id)
             approveToServer()
         }
@@ -56,7 +56,7 @@ class ManagerExpertApproveActivity : AppCompatActivity(){
     private fun approveToServer() {
         lifecycleScope.launch {
             try {
-                val message = ManagerApproveData(viewModel.getExpertId().value.toString())
+                val message = ApproveData(viewModel.getExpertId().value.toString())
                 val response = viewModel.getUrl().value?.let {
                     ManagerApproveApi.retrofitService(it).sendsMessage(message)
                 }
@@ -106,7 +106,7 @@ class ManagerExpertApproveActivity : AppCompatActivity(){
                             val responseData = responseBody.experts
                             result = responseData
 
-                            val adapter = binding.managerExpertApproveRecyclerView.adapter as ManagerExpertApproveAdapter
+                            val adapter = binding.managerExpertApproveRecyclerView.adapter as ExpertApproveAdapter
                             adapter.expertList = result // 어댑터에 데이터 설정
                             adapter.notifyDataSetChanged()
 

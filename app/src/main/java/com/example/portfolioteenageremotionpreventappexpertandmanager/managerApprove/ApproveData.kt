@@ -1,6 +1,3 @@
 package com.example.portfolioteenageremotionpreventappexpertandmanager.managerApprove
 
-
-data class ManagerApproveDataResponse(
-    val result: Any
-)
+data class ApproveData(val id: String)

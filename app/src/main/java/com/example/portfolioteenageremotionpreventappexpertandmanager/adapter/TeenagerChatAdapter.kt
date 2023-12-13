@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.portfolioteenageremotionpreventappexpertandmanager.R
-import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerChat.ExpertTeenagerChatDataPair
+import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerChat.TeenagerChatDataPair
 
-class ExpertTeenagerChatAdapter(private val teenagerChatData: List<ExpertTeenagerChatDataPair>) : RecyclerView.Adapter<ExpertTeenagerChatAdapter.MessageViewHolder>() {
+class TeenagerChatAdapter(private val teenagerChatData: List<TeenagerChatDataPair>) : RecyclerView.Adapter<TeenagerChatAdapter.MessageViewHolder>() {
 
     class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val inputMessageTextView: TextView = itemView.findViewById(R.id.inputChatTextView)

@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.portfolioteenageremotionpreventappexpertandmanager.R
-import com.example.portfolioteenageremotionpreventappexpertandmanager.managerTeenagerList.Teenager
+import com.example.portfolioteenageremotionpreventappexpertandmanager.teenagerList.Teenager
 
-class ManagerTeenagerListAdapter(var managerTeenagerList: List<Teenager>, private val onItemClick: (Teenager) -> Unit) : RecyclerView.Adapter<ManagerTeenagerListAdapter.ManagerTeenagerViewHolder>() {
+class TeenagerListAdapter(var managerTeenagerList: List<Teenager>, private val onItemClick: (Teenager) -> Unit) : RecyclerView.Adapter<TeenagerListAdapter.ManagerTeenagerViewHolder>() {
 
     class ManagerTeenagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val managerTeenagerInfoTextView: TextView = itemView.findViewById(R.id.managerTeenagerInfoTextView)

@@ -1,4 +1,4 @@
-package com.example.portfolioteenageremotionpreventappexpertandmanager.managerExpertApprove
+package com.example.portfolioteenageremotionpreventappexpertandmanager.expertApprove
 
 data class ManagerExpertApproveDataResponse(
     val experts: List<Expert>

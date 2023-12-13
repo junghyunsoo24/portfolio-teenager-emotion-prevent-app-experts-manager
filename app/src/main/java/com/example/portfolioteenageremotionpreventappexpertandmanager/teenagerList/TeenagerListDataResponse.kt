@@ -1,4 +1,4 @@
-package com.example.portfolioteenageremotionpreventappexpertandmanager.managerTeenagerList
+package com.example.portfolioteenageremotionpreventappexpertandmanager.teenagerList
 
 data class ManagerTeenagerListDataResponse (
     val teenagers: List<Teenager>

@@ -15,7 +15,7 @@ import com.example.portfolioteenageremotionpreventappexpertandmanager.appViewMod
 import com.example.portfolioteenageremotionpreventappexpertandmanager.databinding.ActivityExpertTeenagerlistBinding
 import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerList.AllocatedTeenager
 import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerList.ExpertTeenagerListApi
-import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerList.ExpertTeenagerListData
+import com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerList.TeenagerListData
 import kotlinx.coroutines.launch
 
 class ExpertTeenagerListActivity : AppCompatActivity() {
@@ -67,7 +67,7 @@ class ExpertTeenagerListActivity : AppCompatActivity() {
     private fun mobileToServer() {
         lifecycleScope.launch {
             try {
-                val message = ExpertTeenagerListData(id)
+                val message = TeenagerListData(id)
                 val response = ExpertTeenagerListApi.retrofitService(baseUrl).sendsMessage(message)
                 if (response.isSuccessful) {
                     val responseBody = response.body()

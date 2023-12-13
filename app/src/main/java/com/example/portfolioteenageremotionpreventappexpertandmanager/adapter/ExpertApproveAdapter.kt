@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.portfolioteenageremotionpreventappexpertandmanager.R
-import com.example.portfolioteenageremotionpreventappexpertandmanager.managerExpertApprove.Expert
+import com.example.portfolioteenageremotionpreventappexpertandmanager.expertApprove.Expert
 
-class ManagerExpertApproveAdapter(var expertList: List<Expert>, private val onItemClick: (Expert) -> Unit) : RecyclerView.Adapter<ManagerExpertApproveAdapter.ExpertViewHolder>() {
+class ExpertApproveAdapter(var expertList: List<Expert>, private val onItemClick: (Expert) -> Unit) : RecyclerView.Adapter<ExpertApproveAdapter.ExpertViewHolder>() {
 
     class ExpertViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val expertInfoTextView: TextView = itemView.findViewById(R.id.expertInfoTextView)

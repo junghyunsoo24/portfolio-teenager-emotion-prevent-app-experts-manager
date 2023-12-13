@@ -1,3 +1,3 @@
 package com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerList
 
-data class ExpertTeenagerListData(val id: String)
+data class TeenagerListData(val id: String)

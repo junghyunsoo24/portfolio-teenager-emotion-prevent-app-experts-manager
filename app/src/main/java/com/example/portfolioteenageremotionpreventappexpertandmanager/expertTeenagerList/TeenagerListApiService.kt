@@ -1,4 +1,4 @@
-package com.example.portfolioteenageremotionpreventappexpertandmanager.managerApprove
+package com.example.portfolioteenageremotionpreventappexpertandmanager.expertTeenagerList
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -29,18 +29,18 @@ private fun createRetrofit(baseUrl: String): Retrofit {
         .build()
 }
 
-interface ManagerApproveApiService {
+interface ExpertTeenagerListApiService {
     @Headers("Content-Type: application/json")
 
-    @POST("/v1/manager/approve-expert")
-    suspend fun sendsMessage(@Body message: ManagerApproveData): Response<ManagerApproveDataResponse>
+    @POST("/v1/care/teenagers")
+    suspend fun sendsMessage(@Body message: TeenagerListData): Response<ExpertTeenagerListDataResponse>
 
 }
 
 
-object ManagerApproveApi {
-    fun retrofitService(baseUrl: String): ManagerApproveApiService {
+object ExpertTeenagerListApi {
+    fun retrofitService(baseUrl: String): ExpertTeenagerListApiService {
         val retrofit = createRetrofit(baseUrl)
-        return retrofit.create(ManagerApproveApiService::class.java)
+        return retrofit.create(ExpertTeenagerListApiService::class.java)
     }
 }
