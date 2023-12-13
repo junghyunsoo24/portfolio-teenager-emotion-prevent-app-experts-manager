@@ -85,7 +85,6 @@ class ExpertRegisterActivity : AppCompatActivity(){
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        // 서버 응답을 확인하는 작업 수행
                         val responseData = responseBody.result
 
                         showAlertDialog(responseData)

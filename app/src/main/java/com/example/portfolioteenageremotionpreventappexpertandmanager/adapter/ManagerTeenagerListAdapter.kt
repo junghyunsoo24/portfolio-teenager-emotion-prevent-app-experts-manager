@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.portfolioteenageremotionpreventappexpertandmanager.R
 import com.example.portfolioteenageremotionpreventappexpertandmanager.managerTeenagerList.Teenager
 
-class ManagerTeenagerListAdapter(var managerTeenagerList: List<Teenager>, private val onItemClick: (Teenager) -> Unit) :
-    RecyclerView.Adapter<ManagerTeenagerListAdapter.ManagerTeenagerViewHolder>() {
+class ManagerTeenagerListAdapter(var managerTeenagerList: List<Teenager>, private val onItemClick: (Teenager) -> Unit) : RecyclerView.Adapter<ManagerTeenagerListAdapter.ManagerTeenagerViewHolder>() {
 
     class ManagerTeenagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val managerTeenagerInfoTextView: TextView = itemView.findViewById(R.id.managerTeenagerInfoTextView)
@@ -33,16 +32,9 @@ class ManagerTeenagerListAdapter(var managerTeenagerList: List<Teenager>, privat
 
         val teenagerInfo = String.format(
             " 아이디: %s\n 이름: %s\n 나이: %s\n 주소: %s\n 성별: %s\n 핸드폰번호: %s\n 위험 비율: %s",
-            teenager.id,
-            teenager.name,
-            teenager.age,
-            teenager.address,
-            gender,
-            teenager.phone_num,
-            teenager.percentage
-        )
-        holder.managerTeenagerInfoTextView.text = teenagerInfo
+            teenager.id, teenager.name, teenager.age, teenager.address, gender, teenager.phone_num, teenager.percentage)
 
+        holder.managerTeenagerInfoTextView.text = teenagerInfo
         holder.itemView.setOnClickListener {
             onItemClick(teenager)
         }

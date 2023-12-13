@@ -37,7 +37,6 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
     private lateinit var startDate: String
     private lateinit var endDate: String
 
-
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,19 +90,13 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
             val startsDate = Date(startDateMillis)
             val endsDate = Date(endDateMillis)
 
-            // Calendar 인스턴스 생성 및 시작 날짜 설정
             val startCalendar = Calendar.getInstance()
             startCalendar.time = startsDate
 
-//            // 시작 날짜에 1일을 더함
-//            startCalendar.add(Calendar.DAY_OF_MONTH, 1)
-
-            // 종료 날짜에 1일을 더함
             val endCalendar = Calendar.getInstance()
             endCalendar.time = endsDate
             endCalendar.add(Calendar.DAY_OF_MONTH, 1)
 
-            // 더한 날짜를 SimpleDateFormat을 사용하여 문자열로 변환
             val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             startDate = dateFormat.format(startCalendar.time)
             endDate = dateFormat.format(endCalendar.time)
@@ -111,9 +104,7 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
             mobileToServer()
         }
 
-        // 취소 버튼 클릭 리스너 설정
         picker.addOnNegativeButtonClickListener {
-            // 캘린더 선택이 취소될 때의 동작 처리
         }
 
         picker.show(supportFragmentManager, picker.toString())
@@ -132,7 +123,6 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        // 서버 응답을 확인하는 작업 수행
                         val responseData = responseBody.statistics
                         result = responseData
 
@@ -140,9 +130,8 @@ class ExpertTeenagerStatisticsActivity : AppCompatActivity() {
                         result = sortedResult
 
                         val adapter = binding.expertTeenagerStatisticsRecyclerView.adapter as ExpertTeenagerStatisticsAdapter
-                        adapter.teenagerStatistics = result // 어댑터에 데이터 설정
+                        adapter.teenagerStatistics = result
                         adapter.notifyDataSetChanged()
-
 
                     } else {
                         Log.e("@@@@Error3", "Response body is null")

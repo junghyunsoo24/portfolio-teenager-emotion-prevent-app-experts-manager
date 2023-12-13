@@ -9,8 +9,7 @@ import com.example.portfolioteenageremotionpreventappexpertandmanager.R
 import com.example.portfolioteenageremotionpreventappexpertandmanager.managerExpertList.ApproveExpert
 
 
-class ManagerExpertListAdapter(var approveExpertList: List<ApproveExpert>, private val onItemClick: (ApproveExpert) -> Unit) :
-    RecyclerView.Adapter<ManagerExpertListAdapter.ExpertViewHolder>() {
+class ManagerExpertListAdapter(var approveExpertList: List<ApproveExpert>, private val onItemClick: (ApproveExpert) -> Unit) : RecyclerView.Adapter<ManagerExpertListAdapter.ExpertViewHolder>() {
 
     class ExpertViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val expertInfoTextView: TextView = itemView.findViewById(R.id.expertInfoTextView)
@@ -25,15 +24,10 @@ class ManagerExpertListAdapter(var approveExpertList: List<ApproveExpert>, priva
     override fun onBindViewHolder(holder: ExpertViewHolder, position: Int) {
         val approveExpert = approveExpertList[position]
 
-        val approveExpertInfo = String.format(
-            "아이디: %s\n이름: %s\n이메일: %s\n기관: %s\n",
-            approveExpert.id,
-            approveExpert.name,
-            approveExpert.email,
-            approveExpert.institution
-        )
-        holder.expertInfoTextView.text = approveExpertInfo
+        val approveExpertInfo = String.format("아이디: %s\n이름: %s\n이메일: %s\n기관: %s\n",
+            approveExpert.id, approveExpert.name, approveExpert.email, approveExpert.institution)
 
+        holder.expertInfoTextView.text = approveExpertInfo
         holder.itemView.setOnClickListener {
             onItemClick(approveExpert)
         }

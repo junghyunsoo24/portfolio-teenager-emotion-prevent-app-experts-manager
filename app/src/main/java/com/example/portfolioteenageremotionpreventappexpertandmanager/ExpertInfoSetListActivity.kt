@@ -116,7 +116,6 @@ class ExpertInfoSetListActivity : AppCompatActivity(){
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        // 서버 응답을 확인하는 작업 수행
                         result = responseBody
                         viewModel.setUserName(result.name)
                         viewModel.setUserEmail(result.email)

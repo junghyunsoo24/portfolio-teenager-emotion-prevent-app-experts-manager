@@ -18,8 +18,7 @@ import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.ValueFormatter
 import java.text.DecimalFormat
 
-class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, private val onItemClick: (Statistics) -> Unit) :
-    RecyclerView.Adapter<ExpertTeenagerStatisticsAdapter.ExpertTeenagerStatisticsViewHolder>() {
+class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, private val onItemClick: (Statistics) -> Unit) : RecyclerView.Adapter<ExpertTeenagerStatisticsAdapter.ExpertTeenagerStatisticsViewHolder>() {
 
     class ExpertTeenagerStatisticsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val expertTeenagerStatisticsInfoTextView: TextView = itemView.findViewById(R.id.expertTeenagerInfoTextViews)
@@ -72,8 +71,6 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
     private val pastelBlue = Color.rgb(173, 216, 230)
     private val skyBlue = Color.rgb(135, 206, 235)
 
-
-
     private fun getBarChartData(statistics: Statistics): BarData {
         val pleasureEntry = BarEntry(0f, statistics.pleasure.toFloat())
         val anxietyEntry = BarEntry(1f, statistics.anxiety.toFloat())
@@ -82,33 +79,27 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
         val angerEntry = BarEntry(4f, statistics.anger.toFloat())
         val hurtEntry = BarEntry(5f, statistics.hurt.toFloat())
 
-        val pleasureDataSet = BarDataSet(listOf(pleasureEntry), "기쁨").apply {
-            setColors(skyBlue)
+        val pleasureDataSet = BarDataSet(listOf(pleasureEntry), "기쁨").apply { setColors(skyBlue)
             valueTextColor = Color.BLACK
             valueTextSize = 16f
         }
-        val anxietyDataSet = BarDataSet(listOf(anxietyEntry), "불안").apply {
-            setColors(indianRed)
+        val anxietyDataSet = BarDataSet(listOf(anxietyEntry), "불안").apply { setColors(indianRed)
             valueTextColor = Color.BLACK
             valueTextSize = 16f
         }
-        val sorrowDataSet = BarDataSet(listOf(sorrowEntry), "슬픔").apply {
-            setColors(salmon)
+        val sorrowDataSet = BarDataSet(listOf(sorrowEntry), "슬픔").apply { setColors(salmon)
             valueTextColor = Color.BLACK
             valueTextSize = 16f
         }
-        val embarrassedDataSet = BarDataSet(listOf(embarrassedEntry), "당황").apply {
-            setColors(coral)
+        val embarrassedDataSet = BarDataSet(listOf(embarrassedEntry), "당황").apply { setColors(coral)
             valueTextColor = Color.BLACK
             valueTextSize = 16f
         }
-        val angerDataSet = BarDataSet(listOf(angerEntry), "화남").apply {
-            setColors(lightSalmon)
+        val angerDataSet = BarDataSet(listOf(angerEntry), "화남").apply { setColors(lightSalmon)
             valueTextColor = Color.BLACK
             valueTextSize = 16f
         }
-        val hurtDataSet = BarDataSet(listOf(hurtEntry), "상처").apply {
-            setColors(mistyRose)
+        val hurtDataSet = BarDataSet(listOf(hurtEntry), "상처").apply { setColors(mistyRose)
             valueTextColor = Color.BLACK
             valueTextSize = 16f
         }
@@ -126,14 +117,7 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
         angerDataSet.valueFormatter = valueFormatter
         hurtDataSet.valueFormatter = valueFormatter
 
-        return BarData(
-            pleasureDataSet,
-            anxietyDataSet,
-            sorrowDataSet,
-            embarrassedDataSet,
-            angerDataSet,
-            hurtDataSet
-        )
+        return BarData(pleasureDataSet, anxietyDataSet, sorrowDataSet, embarrassedDataSet, angerDataSet, hurtDataSet)
     }
 
     private fun getTwoPieChartData(statistics: Statistics): PieDataSet {
@@ -141,8 +125,7 @@ class ExpertTeenagerStatisticsAdapter(var teenagerStatistics: List<Statistics>, 
         entries.add(PieEntry(statistics.pleasure.toFloat(), "긍정"))
         entries.add(PieEntry((statistics.anxiety + statistics.sorrow + statistics.embarrassed + statistics.anger + statistics.hurt).toFloat(), "부정"))
 
-        val dataSet = PieDataSet(entries, "").apply {
-            setColors(pastelBlue, pastelPink)
+        val dataSet = PieDataSet(entries, "").apply { setColors(pastelBlue, pastelPink)
             valueTextColor = Color.WHITE
             valueTextSize = 16f
         }

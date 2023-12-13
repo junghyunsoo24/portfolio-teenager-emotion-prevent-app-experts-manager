@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.portfolioteenageremotionpreventappexpertandmanager.R
 import com.example.portfolioteenageremotionpreventappexpertandmanager.managerExpertApprove.Expert
 
-class ManagerExpertApproveAdapter(var expertList: List<Expert>, private val onItemClick: (Expert) -> Unit) :
-    RecyclerView.Adapter<ManagerExpertApproveAdapter.ExpertViewHolder>() {
+class ManagerExpertApproveAdapter(var expertList: List<Expert>, private val onItemClick: (Expert) -> Unit) : RecyclerView.Adapter<ManagerExpertApproveAdapter.ExpertViewHolder>() {
 
     class ExpertViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val expertInfoTextView: TextView = itemView.findViewById(R.id.expertInfoTextView)
@@ -23,15 +22,10 @@ class ManagerExpertApproveAdapter(var expertList: List<Expert>, private val onIt
 
     override fun onBindViewHolder(holder: ExpertViewHolder, position: Int) {
         val expert = expertList[position]
-        val expertInfo = String.format(
-            "아이디: %s\n이름: %s\n이메일: %s\n기관: %s\n",
-            expert.id,
-            expert.name,
-            expert.email,
-            expert.institution
-        )
-        holder.expertInfoTextView.text = expertInfo
+        val expertInfo = String.format("아이디: %s\n이름: %s\n이메일: %s\n기관: %s\n",
+            expert.id, expert.name, expert.email, expert.institution)
 
+        holder.expertInfoTextView.text = expertInfo
         holder.itemView.setOnClickListener {
             onItemClick(expert)
         }

@@ -25,7 +25,6 @@ class ExpertTeenagerListActivity : AppCompatActivity() {
     private lateinit var id: String
     private lateinit var baseUrl: String
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -73,7 +72,6 @@ class ExpertTeenagerListActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        // 서버 응답을 확인하는 작업 수행
                         val responseData = responseBody.teenagers
                         result = responseData
 
@@ -82,7 +80,7 @@ class ExpertTeenagerListActivity : AppCompatActivity() {
 
 
                         val adapter = binding.expertTeenagerListRecyclerView.adapter as ExpertTeenagerListAdapter
-                        adapter.expertTeenagerList = result // 어댑터에 데이터 설정
+                        adapter.expertTeenagerList = result
                         adapter.notifyDataSetChanged()
 
                     } else {
