@@ -1,6 +1,5 @@
 # AI 감정분석/챗봇을 활용한 모니터링 및 상담 앱
 ### 2023 과학기술정보통신부 ICT멘토링 한이음 프로젝트
-- 아동 학대 예방 관련 특허 출원(10-2023-0162935)
 - 청소년 상담 관련 특허 출원(10-2024-0019225)
 - 청소년/아동은 생성형 AI를 통한 편안한 대화, 전문가는 감정분석 결과를 확인 후 실시간 상담, 관리자는 인원 관리 및 매칭
 - 모바일 프론트엔드1, 백엔드1, 클라우드1, 삼성 SDS 멘토님1, 교수님1으로 구성
@@ -33,17 +32,15 @@
 
 ## 4. 맡은 역할 및 사용 기술
 ### Kotlin을 통한 Android Native App 개발
-#### 1) 역할
-- AI 챗봇 채팅(GPT-3.5 Turbo 연동)
-- Socket.IO를 통한 실시간 아동/청소년-전문가 채팅
-- MPAndroidChart를 통한 청소년 감정 통계
-- 청소년-전문가 리스트 및 구성원 할당
-#### 2) 기술
-- ViewModel를 통한 LiveData 이용 및  MVVM 패턴
-- Adapter를 통한 RecyclerView  관리
-- DataBinding 및 XML  이용
-- Retrofit과 OkHttp 통한 HTTP 성능 최적화
-- 협업 통한 Flask 서버와 RESTful API 통신 및 AWS 연동
+- DataBinding 및 XML 통한 UI 구성
+- Flask/MySQL 서버와 Retrofit 기반 REST API 및 AWS 연동
+- AI 챗봇 채팅(GPT-3.5 Turbo 연동) 
+- Socket.IO를 통한 실시간 채팅   
+- MPAndroidChart를 통한 그래프 통계
+- Adapter를 통한 RecyclerView 관리
+- LiveData 통한 MVVM 패턴
+
+`Java` `XML` `MySQL` `Retrofit` `Socket.IO` `MPAndroidChart` 
 
 ## 5. 깨달음
 - Firebase를 이용해 앱 내에서 가질 수 있는 정보들은 가지게 하여 서버에 정보 최소화 필요
@@ -52,8 +49,6 @@
 
 ## 6. 성과
 - 2023 과학기술정보통신부 ICT멘토링 한이음 프로젝트 완료
-- 아동/청소년 관련 특허 출원
-- 2025년 1월 플레이스토어 출시 예정
 
 ## 7. UI 화면
 ### 1) AI 챗봇과 채팅
